@@ -456,7 +456,7 @@ $(document).ready(function () {
         }
 
     }
-    var functiontable = {
+    var functiontable = {//
         init: function (msg) {
             this.ids = [];
             this.dataUser = [];
