@@ -1,0 +1,116 @@
+$(document).ready(function() {
+    var user_taable = window['user_taable'] = {
+        init: function() {
+            var _this = this;
+            new Promise(function(resolve) {
+                _this.getUserList(1);
+                resolve();
+            }).then(function() {
+                util.table.allSelect(_this.selected);
+                _this.binds();
+            })
+
+        },
+        selected: function(data) { //ajax
+            // console.log(data)
+            $.ajax({
+                type: 'POST',
+                url: paths + '/sysuser/delBatch',
+                dataType: 'json',
+                data: data.join(","),
+                success: function(data) {
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!', {
+                        icon: 1,
+                        time: 1000
+                    });
+                },
+                error: function(data) {
+                    console.log(data.msg);
+                },
+            });
+        },
+        binds: function() {
+            var self = this;
+            $("table thead th input:checkbox").closest("table").find("tr > td:first-child input:checkbox").on("click", function() {
+                util.table.selectNode(user_taable.selected)
+            })
+        },
+        getUserList: function(page) {
+            var _this = this;
+            var datas = {
+                page: page,
+                size: 20
+            };
+            //          console.log(datas)
+            $.ajax({
+                type: "get",
+                url: paths + "sysuser/manage/list",
+                async: true,
+                dataType: 'json',
+                data: datas,
+                success: function(data) {
+                    // console.log(data)
+                    if (data.code == 0) {
+
+                        if (data.dataInfo.list && data.dataInfo.list.length > 0) {
+                            var pageCount = data.dataInfo.total / datas.size;
+                            var count = pageCount > Math.floor(pageCount) ? Math.floor(pageCount) + 1 : pageCount;
+
+
+                            var htmls = _this.getListHtmls(data.dataInfo.list);
+                            $("#UserList").html(htmls);
+                            $('.userDelete').on("click", function() {
+                                var userId = $(this).parent().attr('data-userId')
+                                _this.admin_del(userId);
+                            })
+                            util.page_html("user_layerPage", page, count, 'user_taable.getUserList');
+                        } else {
+                            $("#UserList").html(' ');
+                        }
+                        //						getPageHtmls(data.dataInfo.pageCount,data.dataInfo.page,data.dataInfo.pageSize);
+                    }
+                },
+                error: function(e) {
+                    console.log(e)
+                }
+            });
+        },
+        /*管理员-删除*/
+        admin_del: function(userId) {
+            // console.log(userId)
+            var datas = {
+                ui: userId
+            };
+            layer.confirm('确认要删除吗？', function(index) {
+                $.ajax({
+                    type: 'POST',
+                    url: paths + 'sysuser/manage/del',
+                    dataType: 'json',
+                    data: datas,
+                    success: function(data) {
+                        $(userId).parents("tr").remove();
+                        layer.msg('已删除!', {
+                            icon: 1,
+                            time: 1000
+                        });
+                        user_taable.getUserList(1);
+                    },
+                    error: function(data) {
+                        console.log(data.msg);
+                    },
+                });
+            });
+        },
+        getListHtmls: function(datas) {
+            var htmls = '';
+            $.each(datas, function(index, item) {
+                htmls += '<tr class="text-c"><td><input type="checkbox" value="1" name=""></td><td class="userId">' + item.userId + '</td><td>' + item.loginName + '</td><td>' + getTimes(item.createTime) + '</td><td>超级管理员</td>' + '<td class="td-manage"><a title="编辑" href="javascript:;" class="ml-5" style="text-decoration:none"><i data-userId="' + item.userId + '" class="Hui-iconfont" onclick="admin_edit()">&#xe6df;</i></a><a  data-userId="' + item.userId + '" title="删除" href="javascript:;" class="ml-7" style="text-decoration:none"><i  class="Hui-iconfont userDelete">&#xe6e2;</i></a></td></tr>';
+            })
+            return htmls;
+        }
+    }
+    user_taable.init()
+
+
+})

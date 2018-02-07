@@ -1,0 +1,73 @@
+$(document).ready(function() {
+    var user_taable = {
+        init: function() {
+        	this.getUserList(1)
+            util.table.allSelect(this.selected);
+            this.binds();
+        },
+        selected: function(data) { //ajax
+            console.log(data)
+            $.ajax({
+                type: 'POST',
+                url: paths + '/sysuser/delBatch',
+                dataType: 'json',
+                data: data.join(","),
+                success: function(data) {
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!', {
+                        icon: 1,
+                        time: 1000
+                    });
+                },
+                error: function(data) {
+                    console.log(data.msg);
+                },
+            });
+        },
+        binds: function() {
+            $("table thead th input:checkbox").closest("table").find("tr > td:first-child input:checkbox").on("click", function() {
+                util.table.selectNode(user_taable.selected)
+            })
+        },
+        getUserList:function (page){
+        	var _this =this;
+	        var datas={
+				page:page,
+				size:20
+            };
+//          console.log(datas)
+            $.ajax({
+				type:"get",
+				url:paths +"sysuser/manage/list",
+				async:true,
+				dataType:'json',
+				data:datas,
+				success:function(data){
+					console.log(data)
+					if(data.code == 0){
+						if(data.dataInfo.list && data.dataInfo.list.length>0){
+							var htmls = _this.getListHtmls(data.dataInfo.list);
+							$("#UserList").html(htmls);
+						}else{
+							$("#UserList").html(' ');
+						}
+//						getPageHtmls(data.dataInfo.pageCount,data.dataInfo.page,data.dataInfo.pageSize);
+					}
+				},
+				error:function(e){
+					console.log(e)
+				}
+			});
+},
+ getListHtmls:function (datas){
+		var htmls =  '';
+		$.each(datas,function(index,item){
+			htmls += '<tr class="text-c"><td><input type="checkbox" value="1" name=""></td><td class="userId">'+item.userId+'</td><td>'+item.loginName+'</td><td>'+getTimes(item.createTime)+'</td><td>超级管理员</td>'+'<td class="td-manage"><a title="编辑" href="javascript:;" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont" onclick="admin_edit()">&#xe6df;</i></a><a title="删除" href="javascript:;" class="ml-7" style="text-decoration:none"><i class="Hui-iconfont" onclick="admin_del()">&#xe6e2;</i></a></td></tr>';
+		})	
+		return htmls;
+	}
+    }
+    user_taable.init()
+
+
+})

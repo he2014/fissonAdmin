@@ -1,0 +1,19 @@
+$(document).ready(function () {
+    $("#functionTable").on("click","a",function(){
+        var id = $(this).parent("td").attr("id")|| $(this).parent("td").siblings("td").attr("id");
+        var pid = $(this).parent("td").attr("pid")|| $(this).parent("td").siblings("td").attr("pid");
+        if($(this).find('i').hasClass("userDelete")&&pid){//删除
+            
+        } else if($(this).find('i').hasClass("userEdit")&&pid){//编辑
+
+        }else{//添加
+            layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['600px', '600px'], //宽高
+                content: 'html内容'
+              });
+        }
+        
+    })
+});

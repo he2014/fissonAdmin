@@ -1,0 +1,85 @@
+@charset "utf-8";
+/* 你自己的样式 */
+
+html, body, div, span, applet, object, input, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    direction: none;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 100%;
+    font-family: "arial";
+    vertical-align: baseline;
+    /* -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; */
+    /* -mo-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none;
+    -webkit-highlight: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0); */
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+caption, th, td {
+    text-align: left;
+    font-weight: normal;
+}
+
+img, a img {
+    border: none;
+    vertical-align: bottom;
+}
+
+a {
+    text-decoration: none;
+    color: #1a1a1a;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+input, textarea, select, button {
+    font-size: 100%;
+    font-family: inherit;
+}
+
+select {
+    margin: inherit;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+.hidden, .dis_none {
+    display: none !important;
+}
+
+/* Hides from IE-mac \*/
+
+*html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}

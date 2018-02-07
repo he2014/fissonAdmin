@@ -1,0 +1,181 @@
+div.page {
+    font-size: 12px;
+    font-size: Verdana, Arial, Helvetica, sans-serif;
+    clear: both;
+    margin: 0 auto;
+    display: none;
+    text-align: center;
+}
+
+div.digg {
+    clear: both;
+    padding: 3px;
+    margin: 3px;
+    text-align: center;
+}
+
+div.digg a, div.digg span {
+    display: inline-block;
+    overflow: hidden;
+    width: 28px;
+    height: 26px;
+    color: #421557;
+    line-height: 26px;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+}
+
+div.digg a {
+    background: url(../images/page_img/feny_li_bg.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+div.digg b {
+    font-weight: 100;
+    display: inline-block;
+    width: 28px;
+    height: 26px;
+    color: #421557;
+    padding-top: 4px;
+    text-align: center;
+}
+
+div.digg a:hover {
+    background: url(../images/page_img/mouse_hover.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+div.digg a:active {
+    background: url(../images/page_img/mouse_hover.png) no-repeat;
+    color: #fff;
+    background-size: 100% 100%;
+}
+
+div.digg span.current {
+    display: inline-block;
+    width: 28px;
+    height: 26px;
+    color: #421557;
+    line-height: 26px;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+    color: #fff;
+    background: url(../images/page_img/click_bg.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+div.digg span.span_1 {
+    display: inline-block;
+    width: 28px;
+    height: 26px;
+    color: #421557;
+    line-height: 26px;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    background: url(../images/page_img/page_left.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+div.digg .span_1.disabled {
+    display: inline-block;
+    width: 28px;
+    height: 26px;
+    color: #421557;
+    line-height: 26px;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+    background: url(../images/page_img/forb_left.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+div.digg span.span_2 {
+    display: inline-block;
+    width: 28px;
+    height: 26px;
+    color: #421557;
+    line-height: 26px;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    background: url(../images/page_img/page_right.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+div.digg .span_2.disabled {
+    display: inline-block;
+    width: 28px;
+    height: 26px;
+    color: #421557;
+    line-height: 26px;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+    background: url(../images/page_img/forb_right.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+/*2*/
+
+div.digg span.span_3 {
+    display: inline-block;
+    width: 28px;
+    height: 26px;
+    color: #421557;
+    line-height: 26px;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    background: url(../images/page_img/page_left2.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+div.digg .span_3.disabled {
+    display: inline-block;
+    width: 28px;
+    height: 26px;
+    color: #421557;
+    line-height: 26px;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+    background: url(../images/page_img/forb_left2.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+div.digg span.span_4 {
+    display: inline-block;
+    width: 28px;
+    height: 26px;
+    color: #421557;
+    line-height: 26px;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    background: url(../images/page_img/page_right2.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+div.digg .span_4.disabled {
+    display: inline-block;
+    width: 28px;
+    height: 26px;
+    color: #421557;
+    line-height: 26px;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+    background: url(../images/page_img/forb_right2.png) no-repeat;
+    background-size: 100% 100%;
+}

@@ -1,0 +1,105 @@
+$(document).ready(function () {
+    var stringFormat = util.String.stringFormat;
+    var template = {
+        Main: '<tr class="mains">\
+                <td class="miandd ">{0}</td> \
+                <td class="miandd ">{1}</td>\
+                <td class="miandd ">{2}</td>\
+                <td class="miandd ">{3}</td>\
+            </tr>',
+        list: '<div id="{1}" data-id="3" class="{2}">{0}</div>',
+        btn: '<div id="functonBtn">\
+        <input id="functonBtn_add" class="btn btn-primary radius" type="button" value="添加">\
+        <input id="functonBtn_edit" class="btn btn-primary radius" type="button" value="修改">\
+        <input id="functonBtn_delete" class="btn btn-danger radius" type="button" value="删除">\
+        </div>'
+    }
+
+    var page = {
+        init: function () {
+            this.getFunction();
+        },
+        getFunction: function () {
+            var _this = this;
+            getAjax("function/list", {}, function (data) {
+                console.log(data)
+                if (data.code == 0) {
+                    var datas = data.dataInfo;
+                    datas.forEach(function (item) {
+                        var firstTd = '';
+                        var sencendTd = "";
+                        var thirdTd = "";
+                        var endTd = "";
+                        var firstCalss = "", sencendClass = "", thirdCalss = "", endClass = "";
+                        firstTd = stringFormat(template.list, item.name, item.id, "Main" + item.id, item.id, );
+                        firstCalss = "Main" + item.id;
+                        if (item.childs && item.childs.length > 0) {
+                            item.childs.forEach(function (ele, i) {
+                                sencendTd += stringFormat(template.list, ele.name, ele.id, "sencendTd" + ele.pId, ele.id);
+                                sencendClass = "sencendTd" + ele.pId
+                                if (ele.childs && ele.childs.length > 0) {
+                                    ele.childs.forEach(function (key) {
+                                        thirdTd += stringFormat(template.list, key.name, key.id, "thirdTd" + key.pId, key.id);
+                                        thirdCalss = "thirdTd" + key.pId;
+                                        if (key.functionInfoBeans && key.functionInfoBeans.length > 0) {
+
+                                            key.functionInfoBeans.forEach(function (fun) {
+
+                                                endTd += stringFormat(template.list, fun.functionName, "fun_" + fun.functionId, "endTd" + fun.resourceId, fun.resourceId);
+                                                endClass = "endTd" + fun.resourceId;
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                        $("#functionTable").append(stringFormat(template.Main, firstTd, sencendTd, thirdTd, endTd));
+                        if (item.childs && item.childs.length > 0) {
+                            if (endClass) {
+                                // console.log($("."+endClass))
+                                $("." + thirdCalss).height(Math.floor($("." + endClass).height()) * $("." + endClass).length);
+
+                            }
+                            if (thirdCalss) {
+                                $("." + sencendClass).height(Math.floor($("." + thirdCalss).height()) * $("." + thirdCalss).length)
+                                $("." + sencendClass).css("lineHeight", $("." + sencendClass).height() + "px")
+                            }
+                            if (sencendClass) {
+                                $("." + firstCalss).height(Math.floor($("." + sencendClass).height()) * $("." + sencendClass).length)
+                            }
+
+                            $(".mains .miandd").css("height", $("." + firstCalss).height())
+                        }
+
+                    });
+
+                }
+                _this.binds();
+            })
+
+        },
+        binds: function () {
+            $("#functionTable td").on("click", "div", function (e) {
+                var target = e.target;
+                var id = $(target).attr("id");
+                var reId = $(target).attr("dataId");
+                // console.log(id).split("_")
+                if (id) {
+                    if (id.split("_")[0] == 'fun') {
+                        layer.open({
+                            content: template.btn,
+                            // success: function(layero, index){
+                            //   console.log(layero, index);
+                            // }
+                        });
+                        $(".layui-layer-btn a").css("display", 'none')
+                        setTimeout(function(){
+
+                        },300)
+                    }
+                }
+            })
+        }
+    }
+    page.init();
+});

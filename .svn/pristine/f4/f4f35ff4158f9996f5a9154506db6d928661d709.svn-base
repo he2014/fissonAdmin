@@ -1,0 +1,168 @@
+$(document).ready(function() {
+    var user_taable = window['user_taable'] = {
+        init: function() {
+            var _this = this;
+            new Promise(function(resolve) {
+                _this.getUserList(1);
+                resolve();
+            }).then(function() {
+                util.table.allSelect(_this.selected);
+
+            })
+
+        },
+        selected: function(data) {
+            $("#batchDelete").on("click", function() {
+                $.ajax({
+                    type: 'POST',
+                    url: paths + 'sysuser/manage/delBatch',
+                    dataType: 'json',
+                    data: {
+                        ids: data.join(",")
+                    },
+                    success: function(data) {
+                        if (data.code == 0) {
+                            layer.msg('已删除!', {
+                                icon: 1,
+                                time: 1000
+                            });
+                            user_taable.getUserList(1);
+                        }
+
+                    },
+                    error: function(data) {
+                        console.log(data.msg);
+                    },
+                });
+            })
+        },
+        binds: function() {
+            var _this = this;
+            $("table thead th input:checkbox").closest("table").find("tr > td:first-child input:checkbox").on("click", function() {
+                util.table.selectNode(user_taable.selected)
+            })
+            $('.userDelete').on("click", function() {
+                var userId = $(this).parent().attr('data-userId')
+                _this.admin_del(userId);
+            })
+            $('.userEdit').on("click", function() {
+                var userIds = $(this).parent().attr('data-userId')
+                _this.admin_edit(userIds);
+            })
+        },
+        getUserList: function(page) {
+            var _this = this;
+            var datas = {
+                page: page,
+                size: 20
+            };
+            //          console.log(datas)
+            $.ajax({
+                type: "get",
+                url: paths + "sysuser/manage/list",
+                async: true,
+                dataType: 'json',
+                data: datas,
+                success: function(data) {
+                    // console.log(data)
+                    if (data.code == 0) {
+
+                        if (data.dataInfo.list && data.dataInfo.list.length > 0) {
+                            var pageCount = data.dataInfo.total / datas.size;
+                            var count = pageCount > Math.floor(pageCount) ? Math.floor(pageCount) + 1 : pageCount;
+
+
+                            var htmls = _this.getListHtmls(data.dataInfo.list);
+                            $("#UserList").html(htmls);
+                            _this.binds();
+                            util.page_html("user_layerPage", page, count, 'user_taable.getUserList');
+                        } else {
+                            $("#UserList").html(' ');
+                        }
+                    }
+                },
+                error: function(e) {
+                    console.log(e)
+                }
+            });
+        },
+        /*管理员-删除*/
+        admin_del: function(userId) {
+            var datas = {
+                ui: userId
+            };
+            layer.confirm('确认要删除吗？', function(index) {
+                $.ajax({
+                    type: 'POST',
+                    url: paths + 'sysuser/manage/del',
+                    dataType: 'json',
+                    data: datas,
+                    success: function(data) {
+                        if (data.code == 0 && data.dataInfo > 0) {
+                            $(userId).parents("tr").remove();
+                            layer.msg('已删除!', {
+                                icon: 1,
+                                time: 1000
+                            });
+                            user_taable.getUserList(1);
+                        }
+                    },
+                    error: function(data) {
+                        console.log(data.msg);
+                    },
+                });
+            });
+        },
+        /*管理员-编辑*/
+        admin_edit: function(userIds) {
+            $("#editUser").modal("show")
+
+            $(".edit-User").click(function(event) {
+                console.log(userIds);
+                var un = $(".input-userName").val();
+                var ps = $(".input-passWord").val();
+                console.log(un);
+                var regex = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
+                if (!un && !ps) {
+                    $.Huimodalalert('用户名、密码不能为空！', 1500)
+                } else if (!un) {
+                    $.Huimodalalert('用户名不能为空！', 1500)
+                } else if (!ps) {
+                    $.Huimodalalert('密码不能为空！', 1500)
+                }
+
+                if (ps && un) {
+                    if (!regex.test(ps)) {
+                        $.Huimodalalert('密码格式不正确！', 1500)
+                    } else if (!regex.test(ps) && (ps.length < 6 || ps.length > 20)) {
+                        $.Huimodalalert('密码格式不正确！', 1500)
+                    } else if (un.length < 6) {
+                        $.Huimodalalert('用户名格式不正确！', 1500)
+                    }
+                    if (regex.test(ps) && un.length >= 6 && ps.length >= 6 && ps.length <= 20) {
+                        var data = {
+                            ui: userIds,
+                            p: un,
+                            un: ps
+                        }
+                        postAjax("sysuser/manage/update/info", data, function(msg) {
+                            if (msg.code == 0) {
+                                $.Huimodalalert('用户信息修改成功！', 1500)
+                                $("#editUser").modal("hide");
+                                user_taable.getUserList(1);
+                            }
+                        })
+                    }
+                }
+            });
+        },
+        getListHtmls: function(datas) {
+            var htmls = '';
+            $.each(datas, function(index, item) {
+                htmls += '<tr class="text-c"><td><input type="checkbox" value="' + item.userId + '" name=""></td><td class="userId">' + item.userId + '</td><td>' + item.loginName + '</td><td>' + getTimes(item.createTime) + '</td><td>超级管理员</td>' + '<td class="td-manage"><a data-userId="' + item.userId + '" title="编辑" href="javascript:;" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont userEdit">&#xe6df;</i></a><a  data-userId="' + item.userId + '" title="删除" href="javascript:;" class="ml-7" style="text-decoration:none"><i  class="Hui-iconfont userDelete">&#xe6e2;</i></a></td></tr>';
+            })
+            return htmls;
+        }
+    }
+    user_taable.init()
+})

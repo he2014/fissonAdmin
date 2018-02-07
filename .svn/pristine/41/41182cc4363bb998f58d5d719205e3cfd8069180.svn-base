@@ -1,0 +1,70 @@
+$(document).ready(function() {
+    var resource_data = null;
+    var resource = {
+        init: function() {
+            var _this = this;
+            getAjax('resource/list', {
+                page: 1,
+                size: 100
+            }, function(data) {
+                if (data.code == 0) {
+                    resource_data = data.dataInfo;
+                    _this.render(resource_data);
+                }
+            })
+
+        },
+        render: function(data) {
+            var newCount = 1;
+            var addHoverDom =  function (treeId, treeNode) {
+                console.log(treeNode)
+                var sObj = $("#" + treeNode.tId + "_span");
+                if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+                var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+                    + "' title='add node' onfocus='this.blur();'></span>";
+                sObj.after(addStr);
+                var btn = $("#addBtn_"+treeNode.tId);
+                if (btn) btn.bind("click", function(){
+                    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                    zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+                    return false;
+                });
+            };
+
+            var removeHoverDom = function(treeId, treeNode) {
+                
+
+            }
+            var setting = {
+                view: {
+                    addHoverDom: addHoverDom,
+                    removeHoverDom: removeHoverDom,
+                    selectedMulti: true
+                },
+                check: {
+                    enable: true
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                edit: {
+                    enable: true
+                }
+            };
+            var vNodes = data;
+            var treeObj= $.fn.zTree.init($("#treeDemo"), setting, vNodes);
+
+             treeObj.expandAll(true);
+            // if (data) {
+            //     var meun_first = data.map(function(item, key) {
+            //         return '<li class="navbar-levelone "><a href="javascript:;">' + item.name + '</a></li>'
+            //     }).join("")
+            //     // $("#navbar-navs").html(meun_first)
+            // }
+
+        }
+    }
+    resource.init();
+})

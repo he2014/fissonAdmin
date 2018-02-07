@@ -1,0 +1,24 @@
+$(document).ready(function() {
+    var resource_data = null;
+    var resource = {
+        init: function() {
+            var _this = this;
+            getAjax('sysuser', {}, function(data) {
+                if (data.code == 0) {
+                    resource_data = data.dataInfo;
+                    _this.render(resource_data);
+                }
+            })
+        },
+        render: function(data) {
+            if (data) {
+                var meun_first = data.map(function(item, key) {
+                    return '<li class="navbar-levelone "><a href="javascript:;">' + item.name + '</a></li>'
+                }).join("")
+                // $("#navbar-navs").html(meun_first)
+            }
+
+        }
+    }
+    resource.init();
+})
