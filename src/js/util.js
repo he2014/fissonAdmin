@@ -1,4 +1,12 @@
 var util = window['util'] = {
+    /**
+     * @param  String pagenation  显示分页盒模型id(div)
+     * @param Number page  当前页
+     * @param Number pageCount 总页数
+     * @param string method 回调函数，获取分页数据，
+     * @param  types 切换
+     * @param float  浮动 默认right
+     */
     page_html: function (pagenation, page, pageCount, method, types, float) {
         var type = types ? types : 0;
         var html_str = '<div class="digg">';
@@ -57,14 +65,14 @@ var util = window['util'] = {
         $("#" + pagenation).css('float', float ? float : "right");
         $("#" + pagenation).show();
     },
-    arrNOte: function (arr, id) {//arr 数组，id要过滤的id
-        var ids = arr.filter(function (item) {//多选，单选时过滤掉不需要提交的ID
+    arrNOte: function (arr, id) { //arr 数组，id要过滤的id
+        var ids = arr.filter(function (item) { //多选，单选时过滤掉不需要提交的ID
             if (item == id) return false;
             return true;
         })
         return ids;
     },
-    noRepeatArr: function (data) {//數組去重
+    noRepeatArr: function (data) { //數組去重
         var arr = data,
             result = [],
             len = arr.length;
@@ -77,20 +85,37 @@ var util = window['util'] = {
         return result;
     },
     'table': {
-        allSelect: function (fn) { /*全选*/
+        allSelect: function (fn,ele) { /*全选*/
             var _this = this;
-            $("table thead th input:checkbox").on("click", function () {
-                $(this).closest("table").find("tr > td:first-child input:checkbox").prop("checked", $("table thead th input:checkbox").prop("checked"));
-                //              alert(fn)
-                _this.selectNode(fn);
-            });
+            if(ele){
+                ele.on("click", function () {
+                    $(this).closest("table").find("tr > td:first-child input:checkbox").prop("checked", $("table thead th input:checkbox").prop("checked"));
+                    _this.selectNode(fn);
+                });
+            } else{
+                $("table thead th input:checkbox").on("click", function () {
+                    $(this).closest("table").find("tr > td:first-child input:checkbox").prop("checked", $("table thead th input:checkbox").prop("checked"));
+                    _this.selectNode(fn);
+                });
+            }
+           
         },
-        selectNode: function (fn, type) { //单选或复选几个
+        /**
+         * fn 回调 function;
+         * tyep   true或false
+         * ele   input:checkbox 对象
+         */
+        selectNode: function (fn, type,ele) { //单选或复选几个
             var arr = [];
-            if (!type) {//用戶列表
+            if (!type) { //用戶列表
                 var couctNode = $("table thead th input:checkbox").closest("table").find("tr > td:first-child input:checkbox");
             } else {
-                var couctNode = $("._editRole tbody tr > td input:checkbox");//角色修改
+                if(ele){
+                    var couctNode =ele;
+                }else{
+                    var couctNode = $("._editRole tbody tr > td input:checkbox"); //角色修改
+                }
+                
             }
 
             for (var i = 0; i < couctNode.length; i++) {
@@ -109,10 +134,11 @@ var util = window['util'] = {
                 }
                 return ret;
             }(arr);
-            if (arr.length > 0 && fn&&!type) {
+            //console.log(data)
+            if (arr.length > 0 && fn && !type) {
                 fn(data)
-            }else{
-                fn(data) 
+            } else {
+                fn(data)
             }
         },
     },

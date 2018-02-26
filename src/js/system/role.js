@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var stringFormat = util.String.stringFormat;
 
     function getFunctionSize(e) {
@@ -41,38 +41,38 @@ $(document).ready(function () {
         }
     }
     var user_taables = window['user_taables'] = {
-        init: function () {
+        init: function() {
             var _this = this;
-            new Promise(function (resolve) {
+            new Promise(function(resolve) {
                 _this.getUserList(1);
                 resolve();
-            }).then(function () {
+            }).then(function() {
                 util.table.allSelect(_this.selected);
 
             })
         },
-        binds: function () {
+        binds: function() {
             var _this = this;
-            $("table thead th input:checkbox").closest("table").find("tr > td:first-child input:checkbox").on("click", function () {
+            $("table thead th input:checkbox").closest("table").find("tr > td:first-child input:checkbox").on("click", function() {
                 util.table.selectNode(user_taables.selected)
             })
-            $('.userDelete').on("click", function () {
+            $('.userDelete').on("click", function() {
                 var roleId = $(this).parent().attr('data-roleId')
                 _this.admin_del(roleId);
             })
-            $('.userEdit').on("click", function () {
+            $('.userEdit').on("click", function() {
                 var roleIds = $(this).parent().attr('data-roleId')
                 // console.log(roleIds)
                 _this.admin_edit(roleIds);
             })
-            $('.editorPage').on("click", function () {
+            $('.editorPage').on("click", function() {
                 var roleIdPage = $(this).attr('data-roleId')
                 var roleNamePage = $(this).attr('data-roleName')
                 // console.log(roleIdPage)
                 _this.page_edit(roleIdPage);
                 _this.page_edit_name(roleNamePage);
             })
-            $('.editorFun').on("click", function () {
+            $('.editorFun').on("click", function() {
                 var roleIdFun = $(this).attr('data-roleId')
                 var roleNameFun = $(this).attr('data-roleName')
                 // console.log(roleNameFun)
@@ -81,7 +81,7 @@ $(document).ready(function () {
             })
         },
         // 获取数据
-        getUserList: function (page) {
+        getUserList: function(page) {
             var _this = this;
             var datas = {
                 page: page,
@@ -93,7 +93,7 @@ $(document).ready(function () {
                 async: false,
                 dataType: 'json',
                 data: datas,
-                success: function (data) {
+                success: function(data) {
                     // console.log(data)
                     // alert(2)
                     if (data.code == 0) {
@@ -108,7 +108,7 @@ $(document).ready(function () {
                             $("#UserList").html(' ');
                         }
                     } else {
-                       // alert(1)
+                        // alert(1)
                         if (data.code == 99) {
                             window.location.href = window.location.href.replace("index.html", "login.html");
                         } else if (data.code == 93) {
@@ -116,14 +116,14 @@ $(document).ready(function () {
                         }
                     }
                 },
-                error: function (e) {
+                error: function(e) {
                     console.log(e)
                 }
             });
         },
         // 批量删除
-        selected: function (data) {
-            $("#batchDelete").on("click", function () {
+        selected: function(data) {
+            $("#batchDelete").on("click", function() {
                 $.ajax({
                     type: 'POST',
                     url: paths + 'role/delete',
@@ -131,7 +131,7 @@ $(document).ready(function () {
                     data: {
                         ids: data.join(",")
                     },
-                    success: function (data) {
+                    success: function(data) {
                         if (data.code == 0) {
                             layer.msg('已删除!', {
                                 icon: 1,
@@ -140,24 +140,24 @@ $(document).ready(function () {
                             user_taables.getUserList(1);
                         }
                     },
-                    error: function (data) {
+                    error: function(data) {
                         console.log(data.msg);
                     },
                 });
             })
         },
         /*管理员-删除*/
-        admin_del: function (roleId) {
+        admin_del: function(roleId) {
             var datas = {
                 ids: roleId
             };
-            layer.confirm('确认要删除吗？', function (index) {
+            layer.confirm('确认要删除吗？', function(index) {
                 $.ajax({
                     type: 'POST',
                     url: paths + 'role/delete',
                     dataType: 'json',
                     data: datas,
-                    success: function (data) {
+                    success: function(data) {
                         if (data.code == 0 && data.dataInfo > 0) {
                             $(roleId).parents("tr").remove();
                             layer.msg('已删除!', {
@@ -167,16 +167,16 @@ $(document).ready(function () {
                             user_taables.getUserList(1);
                         }
                     },
-                    error: function (data) {
+                    error: function(data) {
                         console.log(data.msg);
                     },
                 });
             });
         },
         /*管理员-编辑*/
-        admin_edit: function (roleIds) {
+        admin_edit: function(roleIds) {
             $("#editUser").modal("show")
-            $(".edit-User").unbind('click').click(function (event) {
+            $(".edit-User").unbind('click').click(function(event) {
                 // console.log(userIds);
                 var un = $(".input-userName").val();
                 var ps = $(".input-passWord").val();
@@ -189,7 +189,7 @@ $(document).ready(function () {
                         id: roleIds,
                         n: un
                     }
-                    postAjax("role/update", data, function (data) {
+                    postAjax("role/update", data, function(data) {
                         if (data.code == 0 && data.dataInfo > 0) {
                             $.Huimodalalert('角色信息修改成功！', 1500)
                             $("#editUser").modal("hide");
@@ -200,7 +200,7 @@ $(document).ready(function () {
                 }
             });
         },
-        page_edit: function (roleIdPage) {
+        page_edit: function(roleIdPage) {
             $("#pageEdit").modal("show")
             pagetable.init(roleIdPage);
 
@@ -210,7 +210,7 @@ $(document).ready(function () {
                 "角色：" + roleNamePage + "的页面权限"
             );
         },
-        function_edit: function (roleIdFun) {
+        function_edit: function(roleIdFun) {
             $("#functionEdit").modal("show");
             functiontable.init(roleIdFun)
         },
@@ -219,9 +219,9 @@ $(document).ready(function () {
                 "角色：" + roleNameFun + "的功能权限"
             );
         },
-        getListHtmls: function (datas) {
+        getListHtmls: function(datas) {
             var htmls = '';
-            $.each(datas, function (index, item) {
+            $.each(datas, function(index, item) {
                 htmls += '<tr class="text-c"><td><input type="checkbox" value="' + item.roleId + '" name=""></td><td class="userId">' + item.roleId + '</td><td>' + item.roleName + '</td><td>' + getTimes(item.createTime) + '</td><td class="td-manage"><a data-roleId="' + item.roleId + '" title="编辑" href="javascript:;" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont userEdit">&#xe6df;</i></a><a  data-roleId="' + item.roleId + '" title="删除" href="javascript:;" class="ml-7" style="text-decoration:none"><i  class="Hui-iconfont userDelete">&#xe6e2;</i></a><a data-roleId="' + item.roleId + '" data-roleName="' + item.roleName + '" href="javascript:;" class="btn btn-primary size-S radius editorPage">修改页面权限</a><a data-roleId="' + item.roleId + '" data-roleName="' + item.roleName + '" href="javascript:;" class="btn btn-primary size-S radius editorFun">修改功能权限</a></td></tr>';
             })
             return htmls;
@@ -230,14 +230,14 @@ $(document).ready(function () {
     user_taables.init();
 
     var pagetable = {
-        init: function (MAS) {
+        init: function(MAS) {
             // this.userId = MAS;
             this.getPage(MAS);
             this.ids = [];
 
 
         },
-        getPage: function (msg) {
+        getPage: function(msg) {
             var _this = this;
             // $("#functionTable").html(" ");
             $("#pageTable").html(
@@ -260,9 +260,9 @@ $(document).ready(function () {
                 symbol: '<form class="_privilege" name="from1" id="form{0}" action=""><input {1}  type="radio" name="judge" class="yes"/><label>是</label><input {2} name="io" type="radio" class="no"/><label>否</label></form> ',
             }
 
-            getAjax("privilege/role/page/" + msg, {}, function (data) {
+            getAjax("privilege/role/page/" + msg, {}, function(data) {
                 //顶部菜单
-                data.dataInfo.forEach(function (t) {
+                data.dataInfo.forEach(function(t) {
                     var template = "<tr>";
                     template += "<td id='" + t.id + "' pid='" + t.pId + "'>" + t.name + "</td>";
                     var td1 = "";
@@ -271,7 +271,7 @@ $(document).ready(function () {
 
                     if (t.childs && t.childs.length > 0) {
                         //左侧菜单
-                        t.childs.forEach(function (value1, index1, array1) {
+                        t.childs.forEach(function(value1, index1, array1) {
                             var functionSize = getFunctionSize(value1);
                             if (index1 == array1.length - 1) {
                                 td1 += stringFormat(htmlTemplate.trtdNotWithBottum, 30 * functionSize, value1.id, value1.pId, value1.name);
@@ -280,7 +280,7 @@ $(document).ready(function () {
                             }
                             //资源
                             if (value1.childs && value1.childs.length > 0) {
-                                value1.childs.forEach(function (value2, index2, array2) {
+                                value1.childs.forEach(function(value2, index2, array2) {
                                     var functionSize2 = getFunctionSize(value2);
                                     if (index1 == array1.length - 1 && index2 == array2.length - 1) {
                                         var bool1 = "checked",
@@ -339,25 +339,25 @@ $(document).ready(function () {
                 _this.binds(msg);
             });
         },
-        binds: function (msg) {
+        binds: function(msg) {
             var _this = this;
-            $("._privilege").on("click", "input", function () {
+            $("._privilege").on("click", "input", function() {
                 if (!$(this).attr("checked")) {
                     var id = $(this).parent().parent("td").attr("id")
                     $(this).attr("checked", true).siblings("input").removeAttr("checked");
                     if ($(this).hasClass("no")) {
-                        _this.ids = _this.ids.filter(function (item) { //過濾掉不要的id
+                        _this.ids = _this.ids.filter(function(item) { //過濾掉不要的id
                             if (item == id) return false;
                             return true;
                         })
                     } else {
                         _this.ids.push(Number(id));
                         var data = _this.ids
-                        _this.ids = (function (data) { //去重
+                        _this.ids = (function(data) { //去重
                             var arr = data,
                                 result = [],
                                 len = arr.length;
-                            arr.forEach(function (v, i, arr) {
+                            arr.forEach(function(v, i, arr) {
                                 var bool = arr.indexOf(v, i + 1);
                                 if (bool === -1) {
                                     result.push(v);
@@ -370,14 +370,14 @@ $(document).ready(function () {
                 }
             })
         },
-        submitIds: function (msg) {
+        submitIds: function(msg) {
             var ids = this.ids.join(",")
-            $(".submitIds").unbind("click").click(function () {
+            $(".submitIds").unbind("click").click(function() {
                 postAjax("privilege/page/update/1/" + msg, {
                     rids: ids
-                }, function (data) {
+                }, function(data) {
                     if (data.code == 0) {
-                        layer.msg("設置權限成功")
+                        layer.msg("设置权限成功！")
                         $("#pageEdit").modal("hide")
                     }
                 })
@@ -387,13 +387,13 @@ $(document).ready(function () {
 
     }
     var functiontable = {
-        init: function (msg) {
+        init: function(msg) {
             this.ids = [];
             this.dataUser = [];
             this.dataRole = [];
             this.getFunction(msg);
         },
-        getFunction: function (msg) {
+        getFunction: function(msg) {
             var _this = this;
             // $("#functionTable").html(" ");
             $("#functionTable").html(
@@ -418,9 +418,9 @@ $(document).ready(function () {
                 form: '<form class="_functionBtnForm" name="from1" id="form{0}" action=""><input {1} type="radio" name="judge" class="yes"/><label>是</label><input {2} name="judge" type="radio" class="no"/><label>否</label></form>'
 
             }
-            getAjax("privilege/role/function/" + msg, {}, function (data) {
+            getAjax("privilege/role/function/" + msg, {}, function(data) {
                 //顶部菜单
-                data.dataInfo.forEach(function (t) {
+                data.dataInfo.forEach(function(t) {
                     var template = "<tr>";
                     template += "<td id='" + t.id + "' pid='" + t.pId + "'>" + t.name + "</td>";
                     var td1 = "";
@@ -428,7 +428,7 @@ $(document).ready(function () {
                     var td3 = "";
                     if (t.childs && t.childs.length > 0) {
                         //左侧菜单
-                        t.childs.forEach(function (value1, index1, array1) {
+                        t.childs.forEach(function(value1, index1, array1) {
                             var functionSize = getFunctionSize(value1);
                             if (index1 == array1.length - 1) {
                                 td1 += stringFormat(htmlTemplate.trtdNotWithBottum, 30 * functionSize, value1.id, value1.pId, value1.name);
@@ -437,7 +437,7 @@ $(document).ready(function () {
                             }
                             //资源
                             if (value1.childs && value1.childs.length > 0) {
-                                value1.childs.forEach(function (value2, index2, array2) {
+                                value1.childs.forEach(function(value2, index2, array2) {
                                     var functionSize2 = getFunctionSize(value2);
                                     if (index1 == array1.length - 1 && index2 == array2.length - 1) {
 
@@ -448,7 +448,7 @@ $(document).ready(function () {
                                     }
                                     //         // 功能
                                     if (value2.functionInfoBeans && value2.functionInfoBeans.length > 0) {
-                                        value2.functionInfoBeans.forEach(function (value3, index3, array3) {
+                                        value2.functionInfoBeans.forEach(function(value3, index3, array3) {
                                             if (index2 == array2.length - 1 && index3 == array3.length - 1) {
 
                                                 var bool1 = "checked",
@@ -490,9 +490,9 @@ $(document).ready(function () {
 
                                     } else {
                                         if (index1 == array1.length - 1 && index2 == array2.length - 1) {
-                                            td3 += "<tr><td style=\"height: 30px; border-bottom: none;\">没有资源</td></tr>";
+                                            td3 += "<tr><td style=\"height: 30px; border-bottom: none;\">没有资源</td><td style=\"height: 30px; \"></td></tr>";
                                         } else {
-                                            td3 += "<tr><td style=\"height: 30px; \">没有资源</td></tr>";
+                                            td3 += "<tr><td style=\"height: 30px; \">没有资源</td><td style=\"height: 30px; \"></td></tr>";
                                         }
                                     }
                                 });
@@ -526,9 +526,9 @@ $(document).ready(function () {
                 _this.functionRole(msg)
             });
         },
-        functionRole: function (msg) {
+        functionRole: function(msg) {
             var _this = this;
-            $("._function_messagesrole").unbind("click").click(function () {
+            $("._function_messagesrole").unbind("click").click(function() {
                 // console.log($(this).data("key"))
                 var data = $(this).data("key");
                 var pid = $(this).data("recource")
@@ -538,7 +538,7 @@ $(document).ready(function () {
                 // $("#user_permissions").modal("show");
                 var htmls = "";
                 if (data && data.length > 0 && data != 'undefind') {
-                    data.forEach(function (item) {
+                    data.forEach(function(item) {
                         var bool = item.permitted == 1 ? "checked" : "";
                         var userID = item.userId ? item.userId : item.roleId;
                         var name = item.loginName ? item.loginName : item.roleName;
@@ -552,19 +552,19 @@ $(document).ready(function () {
                         area: ['1000px', '400px'], //宽高
                         content: $html
                     });
-                    $(".user_permissionsList").on("click", "input", function () {
+                    $(".user_permissionsList").on("click", "input", function() {
                         var id = $(this).parent('li').data('id');
                         if (!$(this).attr("checked")) {
                             $(this).attr("checked", true);
                             _this.dataRole.push(id);
                         } else {
                             $(this).removeAttr("checked");
-                            _this.dataRole = _this.dataRole.filter(function (item) {
+                            _this.dataRole = _this.dataRole.filter(function(item) {
                                 if (item == id) return false;
                                 else return true;
                             })
                         }
-                        _this.ids = _this.ids.filter(function (item) { //過濾掉不要的id
+                        _this.ids = _this.ids.filter(function(item) { //過濾掉不要的id
                             if (item.id == pid) return false;
                             return true;
                         })
@@ -577,9 +577,9 @@ $(document).ready(function () {
                 }
             });
         },
-        functionLayer: function (msg) {
+        functionLayer: function(msg) {
             var _this = this;
-            $("._function_messagesuser").unbind("click").click(function () {
+            $("._function_messagesuser").unbind("click").click(function() {
                 // console.log($(this).data("key"))
                 var data = $(this).data("key");
                 var pid = $(this).data("recource")
@@ -589,7 +589,7 @@ $(document).ready(function () {
                 // $("#user_permissions").modal("show");
                 var htmls = "";
                 if (data && data.length > 0) {
-                    data.forEach(function (item) {
+                    data.forEach(function(item) {
                         var bool = item.permitted == 1 ? "checked" : "";
                         var userID = item.userId ? item.userId : item.roleId;
                         var name = item.loginName ? item.loginName : item.roleName;
@@ -603,19 +603,19 @@ $(document).ready(function () {
                         area: ['1000px', '400px'], //宽高
                         content: $html
                     });
-                    $(".user_permissionsList").on("click", "input", function () {
+                    $(".user_permissionsList").on("click", "input", function() {
                         var id = $(this).parent('li').data('id');
                         if (!$(this).attr("checked")) {
                             $(this).attr("checked", true);
                             _this.dataUser.push(id);
                         } else {
                             $(this).removeAttr("checked");
-                            _this.dataUser = _this.dataUser.filter(function (item) {
+                            _this.dataUser = _this.dataUser.filter(function(item) {
                                 if (item == id) return false;
                                 else return true;
                             })
                         }
-                        _this.ids = _this.ids.filter(function (item) { //過濾掉不要的id
+                        _this.ids = _this.ids.filter(function(item) { //過濾掉不要的id
                             if (item.id == pid) return false;
                             return true;
                         })
@@ -628,15 +628,15 @@ $(document).ready(function () {
                 }
             });
         },
-        binds: function (msg) {
+        binds: function(msg) {
             var _this = this;
-            $("._functionBtnForm").on("click", "input", function () {
+            $("._functionBtnForm").on("click", "input", function() {
 
                 if (!$(this).attr("checked")) {
                     var id = $(this).parent().parent("td").attr("id")
                     $(this).attr("checked", true).siblings("input").removeAttr("checked");
                     if ($(this).hasClass("no")) {
-                        _this.ids = _this.ids.filter(function (item) { //過濾掉不要的id
+                        _this.ids = _this.ids.filter(function(item) { //過濾掉不要的id
                             if (item.id == id) return false;
                             return true;
                         })
@@ -667,13 +667,13 @@ $(document).ready(function () {
 
             this.submitIds(msg)
         },
-        submitIds: function (msg) {
+        submitIds: function(msg) {
             var _this = this;
-            $(".functionBtn_primary").unbind("click").click(function () {
+            $(".functionBtn_primary").unbind("click").click(function() {
                 var ids = JSON.stringify(_this.ids);
                 postAjax("privilege/function/update/0/" + msg, {
                     c: ids
-                }, function (data) {
+                }, function(data) {
                     if (data.code == 0) {
                         layer.msg("設置權限成功")
                         $("#functionEdit").modal("hide")

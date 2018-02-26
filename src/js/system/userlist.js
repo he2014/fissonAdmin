@@ -567,28 +567,28 @@ $(document).ready(function() {
 
                                     } else {
                                         if (index1 == array1.length - 1 && index2 == array2.length - 1) {
-                                            td3 += "<tr><td style=\"height: 30px; border-bottom: none;\">没有资源</td></tr>";
+                                            td3 += "<tr><td style=\"height: 30px; border-bottom: none;\">没有功能</td><td style=\"height: 30px; \"></td></tr>";
                                         } else {
-                                            td3 += "<tr><td style=\"height: 30px; \">没有资源</td></tr>";
+                                            td3 += "<tr><td style=\"height: 30px; \">没有功能</td><td style=\"height: 30px; \"></td></tr>";
                                         }
                                     }
                                 });
                             } else {
                                 if (index1 == array1.length - 1) {
                                     td2 += "<tr><td style=\"height: 30px; border-bottom: none;\">没有资源</td></tr>";
-                                    td3 += "<tr><td style=\"height: 30px; border-bottom: none;\">没有资源</td></tr>";
+                                    td3 += "<tr><td style=\"height: 30px; border-bottom: none;\">没有功能</td></tr>";
                                 } else {
                                     td2 += "<tr><td style=\"height: 30px; \">没有资源</td></tr>";
-                                    td3 += "<tr><td style=\"height: 30px; \">没有资源</td></tr>";
+                                    td3 += "<tr><td style=\"height: 30px; \">没有功能</td></tr>";
                                 }
                             }
 
                         });
                     } else {
                         template +=
+                            '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有菜单</td></tr></table>' +
                             '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有资源</td></tr></table>' +
-                            '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有资源</td></tr></table>' +
-                            '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有资源</td></tr></table>';
+                            '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有功能</td></tr></table>';
                     }
                     template += (
                         (td1 == "" ? "" : stringFormat(htmlTemplate.tdtable, td1)) +
@@ -628,7 +628,7 @@ $(document).ready(function() {
                         area: ['1000px', '400px'], //宽高
                         content: $html
                     });
-                    $(".user_permissionsList").on("click", "input", function() {
+                    $("#user_permissionsList").on("click", "input", function() {
                         var id = $(this).parent('li').data('id');
                         if (!$(this).attr("checked")) {
                             $(this).attr("checked", true);
@@ -672,14 +672,14 @@ $(document).ready(function() {
                         htmls += stringFormat(list, userID, bool, name);
 
                     })
-                    var $html = '<ul id="user_permissionsList" class="user_permissionsList">' + htmls + '<ul/>'
+                    var $html = '<ul id="user_permissionsLists" class="user_permissionsList">' + htmls + '<ul/>'
                     layer.open({
                         type: 1,
                         skin: 'layui-layer-rim', //加上边框
                         area: ['1000px', '400px'], //宽高
                         content: $html
                     });
-                    $(".user_permissionsList").on("click", "input", function() {
+                    $("#user_permissionsLists").on("click", "input", function() {
                         var id = $(this).parent('li').data('id');
                         if (!$(this).attr("checked")) {
                             $(this).attr("checked", true);
@@ -751,7 +751,7 @@ $(document).ready(function() {
                     c: ids
                 }, function(data) {
                     if (data.code == 0) {
-                        layer.msg("設置權限成功")
+                        layer.msg("设置权限成功！")
                         $("#functionEdit").modal("hide")
                     }
                 })
