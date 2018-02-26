@@ -51,6 +51,10 @@
 			width: 1050px;
 		}
 
+		.pass {
+			width: 600px;
+		}
+
 		#functionTable {
 			border: 1px solid #0094ff;
 		}
@@ -107,16 +111,19 @@
 		.table .text-r td {
 			text-align: center;
 		}
-		._function_messages{
+
+		._function_messages {
 			border: solid 1px #ddd;
 			padding: 5px;
 		}
-		.user_permissionsList{
+
+		.user_permissionsList {
 			width: 1000px;
 			margin: 0 auto;
 			overflow: hidden;
 		}
-		.user_permissionsList li{
+
+		.user_permissionsList li {
 			float: left;
 			width: 180px;
 			padding-left: 20px;
@@ -197,7 +204,7 @@
 						</tbody>
 					</table>
 					<div class="modal-footer">
-						<button class="btn btn-primary edit-User submit_Role" >确认修改</button>
+						<button class="btn btn-primary edit-User submit_Role">确认修改</button>
 						<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
 					</div>
 				</div>
@@ -227,14 +234,14 @@
 		</div>
 		<!-- 用户修改 -->
 		<div id="editUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
+			<div class="modal-dialog pass">
 				<div class="modal-content radius">
 					<div class="modal-header">
 						<h3 class="modal-title">信息修改</h3>
 						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
 					</div>
 					<div class="modal-body">
-						<span>修改用户名：</span><input id="un" class="input-userName int" type="text" placeholder="请输入新用户名" /><br/>
+						<!-- <span>修改用户名：</span><input id="un" class="input-userName int" type="text" placeholder="请输入新用户名" /><br/> -->
 						<span>修改密码：</span><input id="ps" class="input-passWord int" type="text" placeholder="请输入新密码" />
 					</div>
 					<div class="modal-body-pwd">
@@ -283,8 +290,8 @@
 				</div>
 			</div>
 		</div>
-	
-		
+
+
 		<script type="text/javascript" src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" src="../../../lib/layer/2.4/layer.js"></script>
 		<script type="text/javascript" src="../../../static/h-ui/js/H-ui.min.js"></script>
@@ -378,8 +385,7 @@
 			}
 
 			// 修改功能
-		//	
-		
+			//
 		</script>
 </body>
 

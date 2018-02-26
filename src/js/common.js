@@ -1,4 +1,4 @@
-var paths = "http://10.10.32.147/back/";
+var paths = "http://10.10.32.147/backv2/";
 /**
  * ajax的get请求
  * @param String url  请求接口url
@@ -21,7 +21,12 @@ function getAjax(url, datas, success, error, isSysTip) {
             if (data.code == 0) {
                 success(data);
             } else if (data.code == 99) {
-                $.Huimodalalert('登录失效，请重新登录！', 1500)
+               // $.Huimodalalert('登录失效，请重新登录！', 1500);
+                window.location.href = window.location.href.replace("index.html", "login.html");
+            } else if (data.code == 93) {
+               // $.Huimodalalert('LOGINkey错误！', 1500);
+               
+                window.parent.location.href = window.parent.location.href.replace("index.html", "login.html");
             } else {
                 if (error) {
                     error(data);
@@ -31,7 +36,7 @@ function getAjax(url, datas, success, error, isSysTip) {
             }
         },
         error: function (e) {
-            $.Huimodalalert('失败！', 1500)
+            $.Huimodalalert('接口請求失败！', 1500)
         }
     });
 }
@@ -58,9 +63,14 @@ function postAjax(url, datas, success, error, isSysTip) {
             if (data.code == 0) {
                 success(data);
             } else if (data.code == 99) {
-                $.Huimodalalert('登录失效，请重新登录！', 1500)
+                //$.Huimodalalert('登录失效，请重新登录！', 1500)
+                window.location.href = window.location.href.replace("index.html", "login.html");
             } else if (data.code == 104) {
-                $.Huimodalalert('角色名不能重复！', 1500)
+                $.Huimodalalert('角色名不能重复！', 1500);
+
+            } else if (data.code == 93) {
+               // $.Huimodalalert('LOGINkey错误！', 1500);
+                window.parent.location.href = window.parent.location.href.replace("index.html", "login.html");
             } else {
                 if (error) {
                     error(data);
@@ -70,7 +80,7 @@ function postAjax(url, datas, success, error, isSysTip) {
             }
         },
         error: function (e) {
-            $.Huimodalalert('失败！', 1500)
+            $.Huimodalalert('接口請求失败！', 1500)
         }
     });
 }

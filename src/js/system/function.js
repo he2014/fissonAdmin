@@ -1,9 +1,11 @@
-$(document).ready(function() {
-    $("#functionTable").on("click", "a", function() {
+$(document).ready(function () {
+    $("#functionTable").on("click", "a", function () {
         var id = $(this).parent("td").attr("id") || $(this).parent("td").siblings("td").attr("id");
         var pid = $(this).parent("td").attr("pid") || $(this).parent("td").siblings("td").attr("pid");
+        var dataValue = $(this).parent("td").data("manage");
+        console.log(dataValue)
         if ($(this).find('i').hasClass("userDelete") && pid) { //删除
-            layer.confirm('确认要删除吗？', function(index) {
+            layer.confirm('确认要删除吗？', function (index) {
                 $.ajax({
                     type: 'POST',
                     url: paths + 'function/del',
@@ -11,7 +13,7 @@ $(document).ready(function() {
                     data: {
                         id: id
                     },
-                    success: function(data) {
+                    success: function (data) {
                         if (data.code == 0 && data.dataInfo > 0) {
                             layer.msg('已删除!', {
                                 icon: 1,
@@ -20,7 +22,7 @@ $(document).ready(function() {
                             functiontable.init();
                         }
                     },
-                    error: function(data) {
+                    error: function (data) {
                         console.log(data.msg);
                     },
                 });
@@ -31,20 +33,22 @@ $(document).ready(function() {
                 skin: 'layui-layer-rim', //加上边框
                 area: ['600px', '280px'], //宽高
                 content: '<div class="modal-content radius">' +
+                    '<div style="text-align: center">id:'+dataValue.functionId+'</div>'+
+                    '<div style="text-align: center"></div>' +
                     '<form role="form">' +
                     '<div class="form name">' +
                     '<label for="name">功能名字：</label>' +
-                    '<input type="text" class="input-text radius" id="functionEditName" placeholder="请输入名称" required="required" >' +
+                    '<input type="text" class="input-text radius" id="functionEditName" value='+dataValue.functionName+' placeholder="请输入名称" required="required" >' +
                     '</div>' +
                     '<div class="form flag">' +
                     '<label for="functionFlag">功能标记：</label>' +
-                    '<input type="text" id="functionEditFlag" class="input-text radius" placeholder="请填写功能标记" required="required" >' +
+                    '<input type="text" id="functionEditFlag" value='+dataValue.functionFlag+' class="input-text radius" placeholder="请填写功能标记" required="required" >' +
                     '</div>' +
                     '</form>' +
                     '</div>',
 
                 btn: ['确定', '关闭'],
-                yes: function(index, layero) {
+                yes: function (index, layero) {
                     var fna = $("#functionEditName").val();
                     var ffl = $("#functionEditFlag").val();
 
@@ -57,7 +61,7 @@ $(document).ready(function() {
                             flag: ffl,
                             id: id
                         }
-                        postAjax("function/update", data, function(msg) {
+                        postAjax("function/update", data, function (msg) {
                             if (msg.code == 0 && msg.dataInfo > 0) {
                                 layer.msg('功能修改成功！', {
                                     icon: 1,
@@ -70,7 +74,7 @@ $(document).ready(function() {
                     }
                     return false;
                 },
-                btn2: function(index, layero) {
+                btn2: function (index, layero) {
                     layer.close(edit);
                 }
 
@@ -107,8 +111,8 @@ $(document).ready(function() {
                     '</div>' +
                     '</form>' +
                     '</div>',
-                success: function(layero, index) {
-                    $("#selectType").change(function() {
+                success: function (layero, index) {
+                    $("#selectType").change(function () {
                         var ft = $("#selectType option:checked").text();
                         if (ft == "范围") {
                             $(".functionScope").attr("disabled", false);
@@ -120,7 +124,7 @@ $(document).ready(function() {
                     })
                 },
                 btn: ['确定', '关闭'],
-                yes: function(index, layero) {
+                yes: function (index, layero) {
                     var fn = $("#functionName").val();
                     var fid = $("#functionId").val();
                     var ff = $("#functionFlag").val();
@@ -141,7 +145,7 @@ $(document).ready(function() {
                                 pt: p,
                                 id: fid
                             }
-                            postAjax("function/add", data, function(msg) {
+                            postAjax("function/add", data, function (msg) {
                                 if (msg.code == 0 && msg.dataInfo > 0) {
                                     layer.msg('新功能保存成功！', {
                                         icon: 1,
@@ -171,7 +175,7 @@ $(document).ready(function() {
                                     r: rr,
                                     id: fid
                                 }
-                                postAjax("function/add", datas, function(msg) {
+                                postAjax("function/add", datas, function (msg) {
                                     if (msg.code == 0 && msg.dataInfo > 0) {
                                         layer.msg('新功能保存成功！', {
                                             icon: 1,
@@ -189,7 +193,7 @@ $(document).ready(function() {
                     }
                     return false;
                 },
-                btn2: function(index, layero) {
+                btn2: function (index, layero) {
                     layer.close(edit);
                 }
             });
@@ -198,10 +202,10 @@ $(document).ready(function() {
     });
     var stringFormat = util.String.stringFormat;
     var functiontable = {
-        init: function() {
+        init: function () {
             this.getFunction();
         },
-        getFunction: function() {
+        getFunction: function () {
             var _this = this;
             $("#functionTable").html(
                 "<tr> " +
@@ -220,11 +224,11 @@ $(document).ready(function() {
                 trtdNotWithBottum: ' <tr> <td style="height: {0}px;border-bottom: none;" id="{1}" pid="{2}" class="mybutton">{3}</td></tr>',
                 tdtable: '<td><table>{0}</table></td>',
                 tdconst: '<td> <table><tr><td id="{1}" pid="{2} style="height: 30px; border-bottom: none;">没有资源</td></tr></table>',
-                symbol: '<td class="td-manage"><a title="添加" href="javascript:;" class="ml-3" style="text-decoration:none" id="functonBtn_add"><i class="Hui-iconfont">&#xe600;</i></a><a title="编辑" href="javascript:;" class="ml-5" style="text-decoration:none" id="functonBtn_edit"><i class="Hui-iconfont userEdit">&#xe6df;</i></a><a title="删除" href="javascript:;" class="ml-7" style="text-decoration:none" id="functonBtn_delete"><i  class="Hui-iconfont userDelete">&#xe6e2;</i></a></td>',
+                symbol: '<td class="td-manage" data-manage={0}><a title="添加" href="javascript:;" class="ml-3" style="text-decoration:none" id="functonBtn_add"><i class="Hui-iconfont">&#xe600;</i></a><a title="编辑" href="javascript:;" class="ml-5" style="text-decoration:none" id="functonBtn_edit"><i class="Hui-iconfont userEdit">&#xe6df;</i></a><a title="删除" href="javascript:;" class="ml-7" style="text-decoration:none" id="functonBtn_delete"><i  class="Hui-iconfont userDelete">&#xe6e2;</i></a></td>',
             }
-            getAjax("function/list", {}, function(data) {
+            getAjax("function/list", {}, function (data) {
                 //顶部菜单
-                data.dataInfo.forEach(function(t) {
+                data.dataInfo.forEach(function (t) {
                     var template = "<tr>";
                     template += "<td id='" + t.id + "' pid='" + t.pId + "'>" + t.name + "</td>";
                     var td1 = "";
@@ -232,7 +236,7 @@ $(document).ready(function() {
                     var td3 = "";
                     if (t.childs && t.childs.length > 0) {
                         //左侧菜单
-                        t.childs.forEach(function(value1, index1, array1) {
+                        t.childs.forEach(function (value1, index1, array1) {
                             var functionSize = getFunctionSize(value1);
                             if (index1 == array1.length - 1) {
                                 td1 += stringFormat(htmlTemplate.trtdNotWithBottum, 30 * functionSize, value1.id, value1.pId, value1.name);
@@ -241,7 +245,7 @@ $(document).ready(function() {
                             }
                             //资源
                             if (value1.childs && value1.childs.length > 0) {
-                                value1.childs.forEach(function(value2, index2, array2) {
+                                value1.childs.forEach(function (value2, index2, array2) {
                                     var functionSize2 = getFunctionSize(value2);
                                     if (index1 == array1.length - 1 && index2 == array2.length - 1) {
                                         td2 += stringFormat(htmlTemplate.trtdNotWithBottum, 30 * functionSize2, value2.id, value2.pId, value2.name);
@@ -251,21 +255,22 @@ $(document).ready(function() {
                                     }
                                     //         // 功能
                                     if (value2.functionInfoBeans && value2.functionInfoBeans.length > 0) {
-                                        value2.functionInfoBeans.forEach(function(value3, index3, array3) {
+                                        value2.functionInfoBeans.forEach(function (value3, index3, array3) {
+                                            var types = value3.functionPermissionType == 1 ? "范围" : "是否";
                                             if (index2 == array2.length - 1 && index3 == array3.length - 1) {
-                                                console.info(value3.functionName);
-                                                td3 += stringFormat(htmlTemplate.lasttrtdNotWithBottun, value3.functionId, value3.resourceId, value3.functionName + htmlTemplate.symbol);
+                                                
+                                                td3 += stringFormat(htmlTemplate.lasttrtdNotWithBottun, value3.functionId, value3.resourceId, value3.functionName + " " + types + stringFormat(htmlTemplate.symbol,JSON.stringify(value3)) );
                                             } else {
                                                 // console.info(value3.functionName);
-                                                td3 += stringFormat(htmlTemplate.lasttrtd, value3.functionId, value3.resourceId, value3.functionName + htmlTemplate.symbol);
+                                                td3 += stringFormat(htmlTemplate.lasttrtd, value3.functionId, value3.resourceId, value3.functionName + " " + types + stringFormat(htmlTemplate.symbol, JSON.stringify(value3)));
                                             }
                                         });
 
                                     } else {
                                         if (index1 == array1.length - 1 && index2 == array2.length - 1) {
-                                            td3 += '<tr><td  style="height: 30px; border-bottom: none;">没有资源</td><td pid="' + value2.id + '" class="td-manage" style="height: 30px; border-bottom: none;"><a title="添加" href="javascript:;" class="ml-3" style="text-decoration:none"><i class="Hui-iconfont">&#xe600;</i></a></td></tr>';
+                                            td3 += '<tr><td  style="height: 30px; border-bottom: none;">没有功能</td><td pid="' + value2.id + '" class="td-manage" style="height: 30px; border-bottom: none;"><a title="添加" href="javascript:;" class="ml-3" style="text-decoration:none"><i class="Hui-iconfont">&#xe600;</i></a></td></tr>';
                                         } else {
-                                            td3 += '<tr><td style=\"height: 30px;\">没有资源</td><td class="td-manage"  pid="' + value2.id + '"  style=\"height: 30px;\"><a   title="添加" href="javascript:;" class="ml-3" style="text-decoration:none"><i class="Hui-iconfont">&#xe600;</i></a></td></tr>';
+                                            td3 += '<tr><td style=\"height: 30px;\">没有功能</td><td class="td-manage"  pid="' + value2.id + '"  style=\"height: 30px;\"><a   title="添加" href="javascript:;" class="ml-3" style="text-decoration:none"><i class="Hui-iconfont">&#xe600;</i></a></td></tr>';
                                         }
                                     }
                                     // td3 += '<td class="td-manage"><a title="添加" href="javascript:;" class="ml-3" style="text-decoration:none"><i class="Hui-iconfont">&#xe600;</i></a><a title="编辑" href="javascript:;" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont userEdit">&#xe6df;</i></a><a title="删除" href="javascript:;" class="ml-7" style="text-decoration:none"><i  class="Hui-iconfont userDelete">&#xe6e2;</i></a></td>';
@@ -298,9 +303,9 @@ $(document).ready(function() {
                 });
             });
         },
-        binds: function() {
+        binds: function () {
             var _this = this;
-            $("#functionTable td").on("click", "div", function(e) {
+            $("#functionTable td").on("click", "div", function (e) {
                 var target = e.target;
                 var id = $(target).attr("id");
                 var reId = $(target).attr("dataId");
@@ -312,32 +317,32 @@ $(document).ready(function() {
                             content: template.btn,
                         });
                         $(".layui-layer-btn a").css("display", 'none')
-                        setTimeout(function() {
-                            $("#functonBtn_add").on("click", function() {
+                        // setTimeout(function () {
+                        //     $("#functonBtn_add").on("click", function () {
 
-                            })
-                            $("#functonBtn_edit").on("click", function() {
+                        //     })
+                        //     $("#functonBtn_edit").on("click", function () {
 
-                            })
-                            $("#functonBtn_delete").on("click", function() {
-                                layer.confirm('您确定删除吗？', {
-                                    btn: ['确定', '取消'] //按钮
-                                }, function() {
-                                    postAjax("function/del", {
-                                        id: ids
-                                    }, function(data) {
-                                        if (data.code == 0) {
-                                            layer.msg("删除成功");
-                                            _this.getFunction();
-                                        } else {
-                                            return false;
-                                        }
-                                    })
-                                }, function() {
-                                    // return false;
-                                });
-                            })
-                        }, 300)
+                        //     })
+                        //     $("#functonBtn_delete").on("click", function () {
+                        //         layer.confirm('您确定删除吗？', {
+                        //             btn: ['确定', '取消'] //按钮
+                        //         }, function () {
+                        //             postAjax("function/del", {
+                        //                 id: ids
+                        //             }, function (data) {
+                        //                 if (data.code == 0) {
+                        //                     layer.msg("删除成功");
+                        //                     _this.getFunction();
+                        //                 } else {
+                        //                     return false;
+                        //                 }
+                        //             })
+                        //         }, function () {
+                        //             // return false;
+                        //         });
+                        //     })
+                        // }, 300)
                     }
                 }
             })
