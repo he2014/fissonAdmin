@@ -1,0 +1,302 @@
+var util = window['util'] = {
+    /**
+     * @param  String pagenation  显示分页盒模型id(div)
+     * @param Number page  当前页
+     * @param Number pageCount 总页数
+     * @param string method 回调函数，获取分页数据，
+     * @param  types 切换
+     * @param float  浮动 默认right
+     */
+    page_html: function (pagenation, page, pageCount, method, types, float) {
+        var type = types ? types : 0;
+        var html_str = '<div class="digg">';
+        if (page == 1) {
+            html_str += '<span class="span_1 disabled"></span>';
+            html_str += '<span class="span_3 disabled"></span>';
+        } else {
+            html_str += '<span class="span_1" onclick="' + method + '(1,' + type + ')"></span>';
+            html_str += '<span class="span_3" onclick="' + method + '(' + (page - 1) + ',' + type + ')"></span>';
+        }
+        var start_page = 0,
+            end_page = 0;
+        if (pageCount > 10) {
+            start_page = Math.max(page - 3, 1);
+            if (start_page < 3) {
+                end_page = 7;
+            } else if (page + 6 > pageCount) {
+                end_page = pageCount;
+            } else {
+                end_page = Math.min(page + 3, pageCount);
+            }
+        } else {
+            start_page = 1;
+            end_page = pageCount;
+        }
+        if (pageCount > 10 && end_page + 3 > pageCount) {
+            start_page = pageCount - 6;
+            html_str += '<a href="javascript:void(0)" onclick="' + method + '(1,' + type + ')">1</a>';
+            html_str += '<a href="javascript:void(0)" onclick="' + method + '(2,' + type + ')">2</a>';
+            html_str += '<b>&hellip;</b>';
+        }
+
+        for (var i = start_page; i <= end_page; i++) {
+            if (page == i) {
+                html_str += '<span class="current">' + i + '</span>';
+            } else {
+                html_str += '<a href="javascript:void(0)" onclick="' + method + '(' + i + ',' + type + ')">' + i + '</a>';
+            }
+        }
+
+        if (end_page + 2 < pageCount) {
+            html_str += '<b>&hellip;</b>';
+            html_str += '<a href="javascript:void(0)" onclick="' + method + '(' + (pageCount - 1) + ',' + type + ')">' + (pageCount - 1) + '</a>';
+            html_str += '<a href="javascript:void(0)" onclick="' + method + '(' + pageCount + ',' + type + ')">' + pageCount + '</a>';
+        }
+
+        if (page == pageCount) {
+            html_str += '<span class="span_4 disabled"></span>';
+            html_str += '<span class="span_2 disabled"></span>';
+        } else {
+            html_str += '<span class="span_4" onclick="' + method + '(' + (page + 1) + ',' + type + ')"></span>';
+            html_str += '<span class="span_2" onclick="' + method + '(' + pageCount + ',' + type + ')"></span>';
+        }
+        html_str += '</div>';
+        $("#" + pagenation).html(html_str);
+        $("#" + pagenation).css('float', float ? float : "right");
+        $("#" + pagenation).show();
+    },
+    arrNOte: function (arr, id) { //arr 数组，id要过滤的id
+        var ids = arr.filter(function (item) { //多选，单选时过滤掉不需要提交的ID
+            if (item == id) return false;
+            return true;
+        })
+        return ids;
+    },
+    noRepeatArr: function (data) { //數組去重
+        var arr = data,
+            result = [],
+            len = arr.length;
+        arr.forEach(function (v, i, arr) {
+            var bool = arr.indexOf(v, i + 1);
+            if (bool === -1) {
+                result.push(v);
+            }
+        })
+        return result;
+    },
+    'table': {
+        allSelect: function (fn,ele) { /*全选*/
+            var _this = this;
+            if(ele){
+                ele.on("click", function () {
+                    $(this).closest("table").find("tr > td:first-child input:checkbox").prop("checked", $("table thead th input:checkbox").prop("checked"));
+                    _this.selectNode(fn);
+                });
+            } else{
+                $("table thead th input:checkbox").on("click", function () {
+                    $(this).closest("table").find("tr > td:first-child input:checkbox").prop("checked", $("table thead th input:checkbox").prop("checked"));
+                    _this.selectNode(fn);
+                });
+            }
+           
+        },
+        /**
+         * fn 回调 function;
+         * tyep   true或false
+         * ele   input:checkbox 对象
+         */
+        selectNode: function (fn, type,ele) { //单选或复选几个
+            var arr = [];
+            if (!type) { //用戶列表
+                var couctNode = $("table thead th input:checkbox").closest("table").find("tr > td:first-child input:checkbox");
+            } else {
+                if(ele){
+                    var couctNode =ele;
+                }else{
+                    var couctNode = $("._editRole tbody tr > td input:checkbox"); //角色修改
+                }
+                
+            }
+
+            for (var i = 0; i < couctNode.length; i++) {
+                if (couctNode[i]['checked']) {
+                    arr.push(couctNode[i]['value'])
+                }
+            }
+            var data = function (arr) {
+                var tmp = {},
+                    ret = [];
+                for (var i = 0, j = arr.length; i < j; i++) {
+                    if (!tmp[arr[i]]) {
+                        tmp[arr[i]] = 1;
+                        ret.push(arr[i]);
+                    }
+                }
+                return ret;
+            }(arr);
+            //console.log(data)
+            if (arr.length > 0 && fn && !type) {
+                fn(data)
+            } else {
+                fn(data)
+            }
+        },
+    },
+    'Storage': {
+        hname: location.hostname ? location.hostname : 'localStatus',
+        isLocalStorage: window.localStorage ? true : false,
+        dataDom: null,
+
+        initDom: function () { //初始化userData
+            if (!this.dataDom) {
+                try {
+                    this.dataDom = document.createElement_x('input'); //这里使用hidden的input元素
+                    this.dataDom.type = 'hidden';
+                    this.dataDom.style.display = "none";
+                    this.dataDom.addBehavior('#default#userData'); //这是userData的语法
+                    document.body.appendChild(this.dataDom);
+                    var exDate = new Date();
+                    exDate = exDate.getDate() + 30;
+                    this.dataDom.expires = exDate.toUTCString(); //设定过期时间
+                } catch (ex) {
+                    return false;
+                }
+            }
+            return true;
+        },
+        set: function (key, value) {
+            if (this.isLocalStorage) {
+                window.localStorage.setItem(key, escape(value));
+            } else {
+                if (this.initDom()) {
+                    this.dataDom.load(this.hname);
+                    this.dataDom.setAttribute(key, escape(value));
+                    this.dataDom.save(this.hname)
+                }
+            }
+        },
+        get: function (key) {
+            if (this.isLocalStorage) {
+                return unescape(window.localStorage.getItem(key));
+            } else {
+                if (this.initDom()) {
+                    this.dataDom.load(this.hname);
+                    return unescape(this.dataDom.getAttribute(key));
+                }
+            }
+        },
+        remove: function (key) {
+            if (this.isLocalStorage) {
+                localStorage.removeItem(key);
+            } else {
+                if (this.initDom()) {
+                    this.dataDom.load(this.hname);
+                    this.dataDom.removeAttribute(key);
+                    this.dataDom.save(this.hname)
+                }
+            }
+        }
+    },
+
+    'queryString': function (key) {
+        var result = location.search.match(new RegExp("[\?\&]" + key + "=([^\&]+)", "i"));
+        if (result == null || result.length < 1)
+            return "";
+        return result[1];
+    },
+    'DateTime': {
+        'showtime': function (source) {
+            var month = source.getMonth() + 1
+            return source.getFullYear() + '-' + (month < 10 ? '0' + month : month) + '-' + (source.getDate() < 10 ? '0' + source.getDate() : source.getDate());
+        },
+
+        'fulltime': function (source) {
+            var hours = source.getHours(),
+                minutes = source.getMinutes(),
+                seconds = source.getSeconds();
+            return this.showtime(source) + ' ' +
+                (hours < 10 ? '0' + hours : hours) +
+                ':' + (minutes < 10 ? '0' + minutes : minutes) +
+                ':' + (seconds < 10 ? '0' + seconds : seconds);
+        }
+    },
+    'String': {
+        'stringFormat': function () {
+            if (arguments.length == 0)
+                return null;
+            var value = arguments[0];
+            for (var i = 1, count = arguments.length; i < count; i++) {
+                var pattern = new RegExp('\\{' + (i - 1) + '\\}', 'gm');
+                value = value.replace(pattern, arguments[i]);
+            }
+            return value;
+        },
+
+        'trim': function (source) {
+            return source.replace(/^\s+|\s+$/gi, '');
+        },
+
+        'getByteLength': function (source) {
+            return String(source).replace(/[^\x00-\xff]/g, "ci").length;
+        },
+
+        'subByte': function (source, length, tail) {
+            source = String(source);
+            tail = tail || '';
+            if (length < 0 || this.getByteLength(source) <= length) {
+                return source;
+            }
+            source = source.substr(0, length).replace(/([^\x00-\xff])/g, "\x241 ")
+                .substr(0, length)
+                .replace(/[^\x00-\xff]$/, "")
+                .replace(/([^\x00-\xff]) /g, "\x241");
+            return source + tail;
+        },
+
+        'xssFilter': function (source) {
+            source = source.replace(/</gi, '').replace(/>/gi, '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+            return source;
+        }
+
+
+    },
+}
+var cookie_util = window['cookie_util'] = new function () {
+    this.base_attr = {
+        loginKey: "SELF_LOGIN_KEY", //活动专用
+        user_msg: "SELF_USER_ID", //活动专用
+    };
+    this.get_cookie = function (cookie_name) {
+        if (!cookie_name || cookie_name == '') {
+            return null;
+        }
+        var reg = new RegExp("(^| )" + cookie_name + "=([^;]*)(;|$)");
+        var arr = document.cookie.match(reg);
+        if (arr) {
+            return unescape(arr[2]);
+        } else {
+            return null;
+        }
+    };
+    this.add_or_update_cookie = function (cookie_name, cookie_val, time) {
+        if (!cookie_name || cookie_name == '') {
+            return;
+        }
+        var cookie_str = cookie_name + "=" + escape(cookie_val) + ";";
+        if (time > 0) {
+            var date = new Date();
+            date.setTime(date.getTime() + time);
+            cookie_str += "expires=" + date.toGMTString() + ";";
+        }
+        cookie_str += "path=/;domain=;";
+        document.cookie = cookie_str;
+    };
+    this.delete_cookie = function (cookie_name) {
+        if (!cookie_name || cookie_name == '') {
+            return;
+        }
+        var date = new Date();
+        date.setTime(date.getTime() - 10000);
+        document.cookie = cookie_name + "=; expires=" + date.toGMTString() + ";path=/;domain=;";
+    };
+};

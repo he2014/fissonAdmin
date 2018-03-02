@@ -1,0 +1,386 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../../../lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" href="../../../lib/zTree/v3/css/bootstrapStyle/bootstrapStyle.css">
+    <link rel="stylesheet" href="../../../lib/layer/2.4/skin/layer.css">
+    <link rel="stylesheet" href="../../../lib/layer/2.4/skin/layui.css">
+    <title></title>
+</head>
+
+<body>
+    <div id="treeDemo" class="ztree" style="padding-top:50px;width:400px;padding-left:50px;float:left;"> </div>
+    <div id="ztreeMessage" class="" style="width:600px; float:left;padding-top:50px; min-height:500px; position:fixed;right:10px;top:20px;">
+        <div id="_add-ztree" style="display:none">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <div id="_add_node"></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">是否是菜单</label>
+                    <div class="layui-input-inline">
+                        <select name="im" lay-verify="required" disabled>
+                            <option value="0">是</option>
+                            <option value="1">不是</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图标地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="icon" lay-verify="required" placeholder="请输入icon地址或字体标签" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">资源url</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="url" required lay-verify="required" placeholder="请输入url" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">排序</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="index" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="n" required lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">是否启用</label>
+                    <div class="layui-input-inline">
+                        <select name="ie" lay-verify="required">
+                            <option value="1">禁用</option>
+                            <option value="0" selected>启用</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            
+                            
+                          </div>
+                      </div> -->
+            </form>
+            <div style="display:flex">
+                <button class="layui-btn" id="_submitadd_ztree" style="margin: 0 auto">提交</button>
+            </div>
+
+        </div>
+        <div id="_edit-ztree" style="display:none">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <div id="_add_node"></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">是否是菜单</label>
+                    <div class="layui-input-inline">
+                        <select name="ims" lay-verify="required" disabled>
+                            <option value="0">是</option>
+                            <option value="1">不是</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图标地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="icons" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">资源url</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="urls" required lay-verify="required" placeholder="请输入url" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">排序</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="indexs" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="ns" required lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">是否启用</label>
+                    <div class="layui-input-inline">
+                        <select name="ies" lay-verify="required">
+                            <option value="1">禁用</option>
+                            <option value="0">启用</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                
+                                
+                              </div>
+                          </div> -->
+            </form>
+            <div style="display:flex">
+                <button class="layui-btn" id="_submitedit_ztree" style="margin: 0 auto">确认修改</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="../../../lib/layer/2.4/layer.js"></script> -->
+    <script type="text/javascript" src="../../../lib/layer/2.4/layui.all.js"></script>
+    <script type="text/javascript" src="../../../static/h-ui/js/H-ui.js"></script>
+    <script src="../../../lib/zTree/v3/js/js/jquery.ztree.all.js" charset="utf-8"></script>
+    <script src="../../../lib/zTree/v3/js/js/jquery.ztree.core.js" charset="utf-8"></script>
+    <script src="../../../lib/zTree/v3/js/js/jquery.ztree.excheck.js" charset="utf-8"></script>
+    <script src="../../../lib/zTree/v3/js/js/jquery.ztree.exedit.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/util.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <!-- <script src="../../js/system/resourceMange.js" charset="utf-8"></script> -->
+    <script>
+        $(document).ready(function () {
+            var resource_data = null;
+            // var _this = this;
+            /*获取资源列表*/
+            function getResource() {
+                getAjax('resource/list?' + new Date().getTime(), {
+                    page: 1,
+                    size: 100
+                }, function (data) {
+                    if (data.code == 0) {
+                        resource_data = data.dataInfo;
+                        render(resource_data);
+                    }
+                })
+            }
+            getResource();
+            /*提交新建*/
+            function submitadd_ztree(treeNode) {
+                if (treeNode.level == 2) {
+                    $("#_add-ztree").find("input.layui-disabled").val("不是")
+                } else {
+                    $("#_add-ztree").find("input.layui-disabled").val("是")
+                }
+                $("#_submitadd_ztree").unbind("click").click(function () {
+                    var im = treeNode.level == 2?1:0;
+                    var icon = $("input[name='icon']").val();
+                    var url = $("input[name='url']").val();
+                    var n = $("input[name='n']").val();
+                    var pid = treeNode.id;
+                    if (pid == null) {
+                        pid = 0;
+                    }
+                    var ie = $("select[name='ie']").val();
+                    var index = $("input[name='index']").val();
+                    if (!url) {
+                        // layer.msg("图标地址不能为空")
+                        layer.msg("资源url不能为空")
+                    } else if (!n) {
+                        layer.msg("名称不能为空")
+                    } else {
+                        postAjax("resource/add", {
+                            im: im,
+                            icon: icon,
+                            url: url,
+                            n: n,
+                            pid: pid,
+                            index: index
+                        }, function (data) {
+                            if (data.code == 0) {
+                                $("select[name='im']").val("");
+                                $("input[name='icon']").val("");
+                                $("input[name='url']").val("");
+                                $("input[name='n']").val("");
+                                layer.msg("添加成功！")
+                                getResource()
+                            }
+                        })
+                    }
+                })
+            }
+            //显示添加按钮和版块
+            function addHoverDom(treeId, treeNode) {
+                setTimeout(function () {
+                    if (treeNode.name == "root") { //去掉root删除按钮；
+                        $("#treeDemo_1_remove").hide();
+                    }
+                }, 20);
+                var sObj = $("#" + treeNode.tId + "_span");
+                if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
+                if (treeNode.level != 3) {
+                    var addStr = "<span class='button add' id='addBtn_" + treeNode.tId +
+                        "' title='add node' onfocus='this.blur();'></span>";
+                    sObj.after(addStr);
+                }
+                if (treeNode.name == "root") {
+                    $("#treeDemo_1_remove").hide();
+                }
+                var btn = $("#addBtn_" + treeNode.tId);
+
+                if (btn) {
+                    $("#" + treeNode.tId + "_a").mouseenter(function () {
+                        btn.show()
+                    })
+                    $("#" + treeNode.tId + "_a").mouseleave(function () {
+                        btn.hide()
+                        // $("#_add-ztree").hide()
+                    })
+
+                    btn.unbind("click").click(function () {
+                        $("#_edit-ztree").hide();
+                        $("#_add-ztree").show();
+
+                        $("#_add_node").html("在" + treeNode.name + "下添加新的资源节点")
+
+
+                        submitadd_ztree(treeNode)
+                        return false;
+                    });
+
+                }
+            };
+
+            function removeHoverDom(treeId, treeNode) {
+
+
+
+            };
+
+            function zTreeBeforeEditName(treeId, treeNode) {
+
+            }
+            /*修改*/
+            function zTreeOnClick(event, treeId, treeNode) {
+                $("#_edit-ztree").show();
+                $("#_add-ztree").hide();
+                var data = treeNode;
+                if (data.isMenu == 0) {
+                    $("select[name='ims']").find('option').eq(0).attr("selected", true);
+                    $("select[name='ims']").find('option').eq(1).removeAttr("selected");
+                    $(".layui-unselect").val("是")
+                } else {
+                    $("select[name='ims']").find('option').eq(0).removeAttr("selected")
+                    $("select[name='ims']").find('option').eq(1).attr("selected", true);
+                    $(".layui-unselect").val("不是")
+                }
+                if (data.isEnable == 0) {
+                    $("select[name='ies']").find('option').eq(1).attr("selected", true);
+                } else {
+                    $("select[name='ies']").find('option').eq(0).attr("selected", true);
+                }
+                // var im = $("select[name='im']").val();
+                if (data.icon) {
+                    var icon = $("input[name='icons']").val(data.icon);
+                }
+                if (data.index) {
+                    var icon = $("input[name='indexs']").val(data.index);
+                }
+                var url = $("input[name='urls']").val(data.urls);
+                var n = $("input[name='ns']").val(data.name);
+                var im = $("select[name='im']").val();
+                var icon = $("input[name='icon']").val();
+                var url = $("input[name='url']").val();
+                var n = $("input[name='n']").val();
+                var pid = treeNode.pId;
+                $("#_submitedit_ztree").unbind("click").click(function () {
+                    var im = $("select[name='ims']").val();
+                    var icon = $("input[name='icons']").val();
+                    var url = $("input[name='urls']").val();
+                    var n = $("input[name='ns']").val();
+                    var index = $("input[name='indexs']").val();
+                    var pid = treeNode.id;
+                    postAjax("resource/update", {
+                        im: im,
+                        icon: icon,
+                        url: url,
+                        n: n,
+                        pid: pid,
+                        index: index
+                    }, function (data) {
+                        if (data.code == 0) {
+                            layer.msg('修改成功！')
+                            getResource()
+                        }
+                    })
+                })
+            };
+            /*删除*/
+            function zTreeBeforeRemove(treeId, treeNode) {
+                postAjax("resource/del", {
+                    id: treeNode.id
+                }, function (data) {
+                    if (data.code == 0) {
+                        layer.msg("删除成功");
+                    } else {
+                        return false;
+                    }
+                })
+                // layer.confirm('您确定删除吗？', {
+                //     btn: ['确定', '取消'] //按钮
+                // }, function () {
+
+                // }, function () {
+                //     layer.close(index)
+                //     //  return false;
+                // });
+
+
+            }
+            /*配置Ztree*/
+            function render(data) {
+                var setting = {
+                    view: {
+                        addHoverDom: addHoverDom,
+                        removeHoverDom: removeHoverDom,
+                        selectedMulti: true
+                    },
+                    check: {
+                        enable: true
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
+                    },
+                    edit: {
+                        enable: true,
+                        showRenameBtn: false
+                    },
+                    callback: {
+                        beforeEditName: zTreeBeforeEditName,
+                        beforeRemove: zTreeBeforeRemove,
+                        onClick: zTreeOnClick
+                    }
+                };
+                var vNodes = data;
+                var treeObj = $.fn.zTree.init($("#treeDemo"), setting, vNodes);
+
+                treeObj.expandAll(true);
+
+            }
+
+
+        })
+    </script>
+</body>
+
+</html>

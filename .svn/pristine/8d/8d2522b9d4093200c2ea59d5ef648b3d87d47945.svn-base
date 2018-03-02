@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="stylesheet" type="text/css" href="../../../static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/H-ui.admin.css" />
+	<link rel="stylesheet" type="text/css" href="../../../lib/Hui-iconfont/1.0.8/iconfont.css" />
+	<link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/skin/default/skin.css" id="skin" />
+	<link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/style.css" />
+	<link rel="stylesheet" href="../../css/page.css">
+	<title>管理员列表</title>
+	<style type="text/css">
+		.row {
+			margin-left: 30px;
+			margin-right: 0;
+			margin-top: 10px;
+		}
+
+		.int {
+			border: 1px solid #ccc;
+			height: 30px;
+			margin-bottom: 20px;
+		}
+
+		.modal-body-pwd {
+			color: #e33100;
+			margin-left: 30px;
+			margin-top: 50px;
+		}
+
+		.font {
+			width: 90px;
+			display: inline-block;
+		}
+
+		.editorPage {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+
+		.editorPage {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+
+		.modal-dialog {
+			width: 1050px;
+		}
+
+		.pass {
+			width: 600px;
+		}
+
+		#functionTable {
+			border: 1px solid #0094ff;
+		}
+
+		#functionTable tr td {
+			border-right: 1px solid #0094ff;
+			border-bottom: 1px solid #0094ff;
+		}
+
+		#functionTable tr td tr td {
+			border-right: none;
+			border-bottom: 1px solid #0094ff;
+		}
+
+		#pageTable {
+			border: 1px solid #0094ff;
+		}
+
+		#pageTable tr td {
+			border-right: none;
+			border-right: 1px solid #0094ff;
+			border-bottom: 1px solid #0094ff;
+		}
+
+		#pageTable tr td tr td {
+			border-right: none;
+			border-bottom: 1px solid #0094ff;
+		}
+
+		table {
+			border-collapse: collapse;
+			border: none;
+		}
+
+		td {
+			/* width: 250px; */
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		table tr td table td {
+			border: none;
+			/* border-bottom: 1px solid #0094ff; */
+			height: 29px;
+			padding: 0;
+		}
+
+		.roleTable {
+			width: 800px;
+			margin: 0 auto;
+		}
+
+		.table .text-r th,
+		.table .text-r td {
+			text-align: center;
+		}
+
+		._function_messages {
+			border: solid 1px #ddd;
+			padding: 5px;
+		}
+
+		.user_permissionsList {
+			width: 1000px;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+
+		.user_permissionsList li {
+			float: left;
+			width: 180px;
+			padding-left: 20px;
+		}
+
+		.setRoleWidth {
+			float: left;
+			width: 180px;
+			padding-left: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="breadcrumb">
+		<i class="Hui-iconfont">&#xe62e;</i> 系统管理
+		<span class="c-gray en">&gt;</span> 系统用户管理
+		<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+		<i class="Hui-iconfont">&#xe68f;</i>
+	</a>
+	</nav>
+	<div class="page-container">
+		<!-- 查询条件 -->
+		<div class="text">
+			<input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="">
+			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 查询</button>
+		</div>
+		<!-- 操心按钮 -->
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">
+			<a href="javascript:;" class="btn btn-danger radius" id="batchDelete">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a>
+			<a href="javascript:;"  class="btn btn-primary radius addUser-bt">
+				<i class="Hui-iconfont">&#xe600;</i> 添加用户
+			</a>
+		</span>
+			<table class="table table-border table-bordered table-bg  table-hover">
+				<thead>
+					<tr>
+						<th scope="col" colspan="9">员工列表</th>
+					</tr>
+					<tr class="text-c">
+						<th width="25"><input type="checkbox" name="" value=""></th>
+						<th width="150">ID</th>
+						<th width="180">登录名</th>
+						<!--<th width="90">手机</th>
+					<th width="150">邮箱</th>-->
+						<th width="180">加入时间</th>
+						<!-- <th>角色</th> -->
+						<!--<th width="100">是否已启用</th>-->
+						<th width="400">操作</th>
+					</tr>
+				</thead>
+				<tbody id="UserList">
+				</tbody>
+			</table>
+			<div id="user_layerPage"></div>
+		</div>
+		<!-- 修改角色 -->
+		<div id="editRole" class="modal fade _editRole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content radius">
+					<div class="modal-header">
+						<h3 class="modal-title">用户角色修改</h3>
+						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+					</div>
+					<div class="modal-body">
+						<!-- <span>该用户角色：</span> -->
+					</div>
+					<table class="table table-border table-bordered table-bg  table-hover roleTable">
+						<thead>
+							<tr>
+								<th scope="col" colspan="9">角色列表</th>
+							</tr>
+							<tr class="text-r">
+								<th width="150">角色ID</th>
+								<th width="180">角色名</th>
+								<th width="180">创建时间</th>
+								<th width="150">是否属于该角色</th>
+							</tr>
+						</thead>
+						<tbody id="UserRoleList">
+						</tbody>
+					</table>
+					<div class="modal-footer">
+						<button class="btn btn-primary edit-User submit_Role">确认修改</button>
+						<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 添加用户 -->
+		<div id="addUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content radius">
+					<div class="modal-header">
+						<h3 class="modal-title">添加用户</h3>
+						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+					</div>
+					<div class="modal-body">
+						<span>用户名：</span><input id="un" class="input-user int" type="text" placeholder="请输入用户名" /><br/>
+						<span>初始密码：</span><input id="ps" class="input-ps int" type="text" placeholder="请输入密码" /><br/>
+						<span>选择用户角色：</span><br/>
+						<span id="setRole" class="setRole"></span><br/>
+					</div>
+					<div class="modal-body-pwd">
+						<span>*</span>用户名需大于6位，密码长度为6-20位且不能是全数字或全字母
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary add-User" id="SaveBtn">确定</button>
+						<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 用户修改 -->
+		<div id="editUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog pass">
+				<div class="modal-content radius">
+					<div class="modal-header">
+						<h3 class="modal-title">信息修改</h3>
+						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+					</div>
+					<div class="modal-body">
+						<!-- <span>修改用户名：</span><input id="un" class="input-userName int" type="text" placeholder="请输入新用户名" /><br/> -->
+						<span>修改密码：</span><input id="ps" class="input-passWord int" type="text" placeholder="请输入新密码" />
+					</div>
+					<div class="modal-body-pwd">
+						<span>*</span>用户名需大于6位，密码长度为6-20位且不能是全数字或全字母
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary edit-User" id="submitNewpwd">确定</button>
+						<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 修改页面权限 -->
+		<div id="pageEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content radius">
+					<div class="modal-header">
+						<h3 class="modal-title pagePrompt">对话框标题</h3>
+						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+					</div>
+					<div class="modal-body">
+						<table id="pageTable"></table>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary pageBtn_primary submit_userIds">确定</button>
+						<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 修改功能权限 -->
+		<div id="functionEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content radius">
+					<div class="modal-header">
+						<h3 class="modal-title functionPrompt">对话框标题</h3>
+						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+					</div>
+					<div class="modal-body">
+						<table id="functionTable"></table>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary functionBtn_primary">确定</button>
+						<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<script type="text/javascript" src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="../../../static/h-ui/js/H-ui.min.js"></script>
+		<script type="text/javascript" src="../../../static/h-ui.admin/js/H-ui.admin.js"></script>
+		<!--/_footer 作为公共模版分离出去-->
+
+		<!--请在下方写此页面业务相关的脚本-->
+		<script type="text/javascript" src="../../../lib/My97DatePicker/4.8/WdatePicker.js"></script>
+		<script type="text/javascript" src="../../../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="../../../lib/laypage/1.2/laypage.js"></script>
+		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 常用公共JS-->
+		<script type="text/javascript" src="../../js/util.js"></script>
+		<!-- 模板 -->
+		<script type="text/javascript" src="../../js/component.js"></script>
+		<!--用户表格-->
+		<script type="text/javascript" src="../../js/system/userlist.js"></script>
+
+		<script type="text/javascript">
+		</script>
+</body>
+
+</html>
