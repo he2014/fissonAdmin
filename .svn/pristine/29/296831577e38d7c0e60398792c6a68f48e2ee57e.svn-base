@@ -1,9 +1,0 @@
-input#oldPwd, input#newPwd {
-    border: 1px solid #ccc;
-    height: 30px;
-    margin-bottom: 20px;
-}
-
-.modal-body-pwd {
-    color: #e33100;
-}

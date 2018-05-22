@@ -1,0 +1,240 @@
+table table tr:last-child .td-manage {
+    border-bottom: none !important;
+}
+
+.row {
+    margin-left: 30px;
+    margin-right: 0;
+    margin-top: 10px;
+}
+
+.int {
+    border: 1px solid #ccc;
+    height: 30px;
+    margin-bottom: 20px;
+}
+
+.modal-body-pwd {
+    color: #e33100;
+    margin-left: 30px;
+    margin-top: 50px;
+}
+
+.font {
+    width: 90px;
+    display: inline-block;
+}
+
+.editorPage {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.editorPage {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.modal-dialog {
+    width: 1050px;
+}
+
+.pass {
+    width: 600px;
+}
+
+#functionTable {
+    border: 1px solid #0094ff;
+}
+
+#functionTable tr td {
+    border-right: 1px solid #0094ff;
+    border-bottom: 1px solid #0094ff;
+}
+
+#functionTable tr td tr td {
+    border-right: none;
+    border-bottom: 1px solid #0094ff;
+}
+
+#pageTable {
+    border: 1px solid #0094ff;
+}
+
+#pageTable tr td {
+    border-right: none;
+    border-right: 1px solid #0094ff;
+    border-bottom: 1px solid #0094ff;
+}
+
+#pageTable tr td tr td {
+    border-right: none;
+    border-bottom: 1px solid #0094ff;
+}
+
+table {
+    border-collapse: collapse;
+    border: none;
+}
+
+td {
+    /* width: 250px; */
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+table tr td table td {
+    border: none;
+    /* border-bottom: 1px solid #0094ff; */
+    height: 29px;
+    padding: 0;
+}
+
+.roleTable {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.table .text-r th, .table .text-r td {
+    text-align: center;
+}
+
+._function_messages {
+    border: solid 1px #ddd;
+    padding: 5px;
+}
+
+.user_permissionsList {
+    width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.user_permissionsList li {
+    float: left;
+    width: 180px;
+    padding-left: 20px;
+}
+
+.setRoleWidth {
+    float: left;
+    width: 180px;
+    padding-left: 20px;
+}
+
+/* xinjia */
+
+.conditions {
+    margin-left: 15px;
+    margin-right: 8px;
+}
+
+.f-14 {
+    font-size: 14px;
+}
+
+.btn-success {
+    margin-left: 10px;
+}
+
+a.btn.size-S {
+    margin-left: 3px;
+    margin-top: 2px;
+}
+
+#PostPic {
+    width: 60px;
+    height: auto;
+}
+
+#roomPoster {
+    width: 80px;
+}
+
+table a {
+    color: #428bca;
+}
+
+.table-bordered {
+    border-collapse: collapse;
+}
+
+.fade.in {
+    z-index: 0;
+}
+
+.breadcrumb {
+    z-index: -1;
+}
+
+.KickingBtn {
+    margin-left: 15px;
+}
+
+#stopDetails {
+    height: 522px;
+}
+
+.stop-body {
+    height: 398px;
+    padding: 10px;
+    padding-top: 5px;
+}
+
+.stop-header {
+    padding: 10px;
+}
+
+.stop-footer {
+    padding: 10px;
+}
+
+.stop-title {
+    padding: 1px;
+}
+
+.breadcrumb {
+    margin-bottom: 0;
+}
+
+.btn-default {
+    margin-left: 16px;
+    margin-top: 29px;
+}
+
+.stopDetails>thead>tr>th {
+    font-weight: normal;
+    border-bottom-width: 1px;
+}
+
+.stopTable {
+    background-color: transparent;
+}
+
+input[type=radio] {
+    margin-left: 20px;
+}
+
+.check-box, .radio-box {
+    float: right;
+}
+
+.on {
+    background-color: #5cb85c;
+}
+
+.hotonline {
+    background-color: #5cb85c !important;
+}
+
+.btn-sm {
+    border: 1px solid #ddd;
+    margin-left: 15px;
+    margin-top: 33px;
+    width: 115px;
+}
+
+.hide {
+    display: none;
+}

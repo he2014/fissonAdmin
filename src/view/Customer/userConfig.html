@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="../../../lib/layer/2.4/css/modules/layer/default/layer.css">
+    <link rel="stylesheet" href="../../../lib/layer/2.4/skin/layui.css">
+    <!-- <link rel="stylesheet" href="../../../lib/layer/2.4/css/modules/code.css">  -->
+    <!-- <link rel="stylesheet" href="../../../lib/bootstrap-3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../lib/bootstrap3-editable/css/bootstrap-editable.css"> -->
+    <!-- <link rel="stylesheet" href="../../../lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.css"> -->
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../../../lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" href="../../css/page.css">
+    <!-- <link rel="stylesheet" href="../../css/Customer/userBlackList.css"> -->
+    <title></title>
+    <style>
+        .layui-input {
+            width: 120px;
+            margin: 0 0 0 10px;
+        }
+
+        .headers,
+        .headers div {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+
+        }
+
+        .headers {
+            border: 1px solid rgba(0, 0, 0, .1);
+        }
+
+        .headers div {
+            font-size: 14px !important;
+            font-style: normal;
+            padding: 3px 5px;
+            margin: 0 10px;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="userConfig" style="margin:20px;">
+        <div id="gift" class="userConfigs hide" data-btn="userConfig_gift">
+            <div class="admin_bar">
+                <i class="layui-icon">&#xe629;</i>&nbsp;&nbsp;&nbsp;&nbsp; 礼物信息
+            </div>
+            <div class="content hide">
+                <div id="gift_header" class="headers">
+                    <div>
+                        <span>用户id</span>
+                        <input id="gift_userId" type="text" name="title" required lay-verify="required" placeholder="请输入userId" autocomplete="off" class="layui-input">
+                    </div>
+                    <div>
+                        <span>礼物</span>
+                        <select id="gift_select" name="city" lay-verify="" style="height:30px;">
+                        </select>
+                    </div>
+                    <div>
+                        <span>数量</span>
+                        <input id="gift_number" type="text" name="title" required lay-verify="required" placeholder="number" autocomplete="off" class="layui-input">
+                    </div>
+                    <div>
+                        <button class="layui-btn layui-btn-sm" id="gift_search">查询</button>
+                        <button class="layui-btn layui-btn-sm" id="gift_add">添加</button>
+                        <button class="layui-btn layui-btn-sm" id="gift_delete">扣除</button>
+                    </div>
+                </div>
+                <div id="gift_table"></div>
+            </div>
+
+        </div>
+        <div id="stars" class="userConfigs hide" data-btn="userConfig_stars">
+            <div class="admin_bar">
+                <i class="layui-icon">&#xe629;</i>&nbsp;&nbsp;&nbsp;&nbsp;钻石信息
+            </div>
+            <div class="content hide">
+                <div id="stars_header" class="headers">
+                    <div>
+                        <span>用户id</span>
+                        <input id="stars_userId" type="text" name="title" required lay-verify="required" placeholder="请输入userId" autocomplete="off" class="layui-input">
+                    </div>
+                    <!-- <div>
+                        <span>礼物</span>
+                        <select id="stars_select" name="city" lay-verify="" style="height:30px;">
+                        </select>
+                    </div> -->
+                    <div>
+                        <span>数量</span>
+                        <input id="stars_number" type="text" name="title" required lay-verify="required" placeholder="number" autocomplete="off" class="layui-input">
+                    </div>
+                    <div>
+                        <button class="layui-btn layui-btn-sm" id="stars_search">查询</button>
+                        <button class="layui-btn layui-btn-sm" id="stars_add">添加</button>
+                        <button class="layui-btn layui-btn-sm" id="stars_delete">扣除</button>
+                    </div>
+                </div>
+                <div id="stars_table"></div>
+            </div>
+        </div>
+        <div id="car" class="userConfigs hide" data-btn="userConfig_car">
+            <div class="admin_bar">
+                <i class="layui-icon">&#xe629;</i>&nbsp;&nbsp;&nbsp;&nbsp; 座驾信息
+            </div>
+            <div class="content hide">
+                <div id="car_header" class="headers">
+                    <div>
+                        <span>用户id</span>
+                        <input id="car_userId" type="text" name="title" required lay-verify="required" placeholder="请输入userId" autocomplete="off" class="layui-input">
+                    </div>
+                    <div>
+                        <span>座驾</span>
+                        <select id="car_select" name="ci" lay-verify="" style="height:30px;">
+                        </select>
+                    </div>
+                    <div>
+                        <span>过期</span>
+                        <select id="car_number" name="city" lay-verify="" style="height:30px;">
+                            <option value="1">一天</option>
+                            <option value="7">一周</option>
+                            <option value="30">一月</option>
+                            <option value="90">三月</option>
+                            <option value="365">一年</option>
+                            <option value="1095">三年</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="layui-btn layui-btn-sm" id="car_search">查询</button>
+                        <button class="layui-btn layui-btn-sm" id="car_add">添加</button>
+                        <button class="layui-btn layui-btn-sm" id="car_delete">扣除</button>
+                    </div>
+                </div>
+                <div id="car_table"></div>
+            </div>
+        </div>
+        <div id="badge" class="userConfigs hide" data-btn="userConfig_badge">
+            <div class="admin_bar">
+                <i class="layui-icon">&#xe629;</i>&nbsp;&nbsp;&nbsp;&nbsp; 徽章信息
+            </div>
+            <div class="content hide">
+                <div id="badge_header" class="headers">
+                    <div>
+                        <span>用户id</span>
+                        <input id="badge_userId" type="text" name="title" required lay-verify="required" placeholder="请输入userId" autocomplete="off" class="layui-input">
+                    </div>
+                    <div>
+                        <span>徽章</span>
+                        <select id="badge_select" name="city" lay-verify="" style="height:30px;">
+                        </select>
+                    </div>
+                    <div>
+                        <span>过期</span>
+                        <select id="badge_number" name="city" lay-verify="" style="height:30px;">
+                            <option value="1">一天</option>
+                            <option value="7">一周</option>
+                            <option value="30">一月</option>
+                            <option value="90">三月</option>
+                            <option value="365">一年</option>
+                            <option value="1095">三年</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="layui-btn layui-btn-sm" id="badge_search">查询</button>
+                        <button class="layui-btn layui-btn-sm" id="badge_add">添加</button>
+                        <button class="layui-btn layui-btn-sm" id="badge_delete">扣除</button>
+                    </div>
+                </div>
+                <div id="badge_table"></div>
+            </div>
+        </div>
+        <div id="level" class="userConfigs hide" data-btn="userConfig_level">
+            <div class="admin_bar">
+                <i class="layui-icon">&#xe629;</i>&nbsp;&nbsp;&nbsp;&nbsp; 等级信息
+            </div>
+            <div class="content hide">
+                <div id="level_header" class="headers">
+                    <div>
+                        <span>用户id</span>
+                        <input id="level_userId" type="text" name="title" required lay-verify="required" placeholder="请输入userId" autocomplete="off" class="layui-input">
+                    </div>
+                    <div>
+                        <span>类型</span>
+                        <select id="level_select" name="city" lay-verify="" style="height:30px;">
+                            <option value="1">用户</option>
+                            <option value="2">主播</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>积分</span>
+                        <input id="level_number" type="text" name="title" required lay-verify="required" placeholder="请输入userId" autocomplete="off" class="layui-input">
+                    </div>
+                    <div>
+                        <button class="layui-btn layui-btn-sm" id="level_search">查询</button>
+                        <button class="layui-btn layui-btn-sm" id="level_add">添加</button>
+                        <button class="layui-btn layui-btn-sm" id="level_delete">扣除</button>
+                    </div>
+                </div>
+                <div id="level_table"></div>
+            </div>
+        </div>
+        <div id="member" class="userConfigs hide" data-btn="userConfig_member">
+            <div class="admin_bar">
+                <i class="layui-icon">&#xe629;</i>&nbsp;&nbsp;&nbsp;&nbsp; 会员信息
+            </div>
+            <div class="content hide">
+                <div id="member_header" class="headers">
+                    <div>
+                        <span>用户id</span>
+                        <input id="member_userId" type="text" name="title" required lay-verify="required" placeholder="请输入userId" autocomplete="off" class="layui-input">
+                    </div>
+                    <div>
+                        <span>会员</span>
+                        <select id="member_select" name="city" lay-verify="" style="height:30px;">
+                            <option value="1">vip</option>
+                            <option value="2">svip</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>过期</span>
+                        <select id="member_number" name="city" lay-verify="" style="height:30px;">
+                            <option value="1">一天</option>
+                            <option value="7">一周</option>
+                            <option value="30">一月</option>
+                            <option value="90">三月</option>
+                            <option value="365">一年</option>
+                            <option value="1095">三年</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="layui-btn layui-btn-sm" id="member_search">查询</button>
+                        <button class="layui-btn layui-btn-sm" id="member_add">添加</button>
+                        <button class="layui-btn layui-btn-sm" id="member_delete">扣除</button>
+                    </div>
+                </div>
+                <div id="member_table"></div>
+            </div>
+
+        </div>
+        <div id="sign" class="userConfigs hide" data-btn="userConfig_sign">
+            <div class="admin_bar">
+                <i class="layui-icon">&#xe629;</i>&nbsp;&nbsp;&nbsp;&nbsp; 签到工具
+            </div>
+            <div class="content hide">
+                <div id="sign_header" class="headers">
+                    <div>
+                        <span>用户id</span>
+                        <input id="sign_userId" type="text" name="title" required lay-verify="required" placeholder="请输入userId" autocomplete="off" class="layui-input">
+                    </div>
+                    <div>
+                        <span>第几天</span>
+                        <select id="sign_number" name="city" lay-verify="" style="height:30px;">
+
+                        </select>
+                    </div>
+                    <div>
+                        <button class="layui-btn layui-btn-sm" id="sign_search">修改</button>
+                    </div>
+                </div>
+                <div id="sign_table"></div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
+    <!-- <script src="../../../lib/bootstrap-3/js/bootstrap.min.js"></script>
+    <script src="../../../lib/bootstrap3-editable/js/bootstrap-editable.min.js"></script> -->
+    <!-- <script src="../../../lib/bootstrap3-editable/js/moment.js"></script> -->
+    <!-- <script src="../../../lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script> -->
+    <script type="text/javascript" src="../../../lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="../../../lib/layer/2.4/layui.all.js"></script>
+    <script type="text/javascript" src="../../../static/h-ui/js/H-ui.js"></script>
+    <script type="text/javascript" src="../../../static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script type="text/javascript" src="../../../lib/laypage/1.2/laypage.js"></script>
+    <!-- 常用公共JS-->
+    <script type="text/javascript" src="../../js/common.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/util.js"></script>
+    <!-- <script type="text/javascript" src="../../js/upload.js" charset="utf-8"></script> -->
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../../js/Customer/userConfig.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,173 @@
+var stop_reason_ar_util = new function() {
+	//优化建议
+	this.scam_cn = {
+			"0": "请注意调节房间内的灯光，并确保灯打开。",
+			"1": "请确保您使用的是高质量的相机，并注意在广播中对定位的要求。",
+			"2": "请注意你面前的相机正确位置。",
+			"3": "请注意你的着装，化妆。在视频中呈现一个漂亮美丽的自己。",
+			"4": "请注意不要在没有评论或互动的情况下播放任何视频或电影。",
+			"5": "请调整您的设备和网络，避免屏幕在直播过程中出现黑色。",
+			"6": "请注意与用户进行良好的互动交流。别忘了，更好的沟通会带来更多的用户。并提醒用户跟随你，送你礼物。",
+			"7": "禁止在广播中播放和打长时间的电话。",
+			"8": "请注意在广播中有丰富的背景。你可以用玩具、书籍等来装饰你的背景。",
+			"9": "禁止播放未经授权的电影和电视节目。",
+			"10": "请注意，你的麦克风不要挡住你的脸。",
+			"11": "请确保你的麦克风没有问题。麦克风的所有问题都会影响你的听众。",
+			"12": "严禁播放广播。",
+			"13": "直播过程中不要覆盖屏幕",
+			"14": "主人不能在一小时内就把广播放得太频繁。",
+			"15": "直播开始前需要确保设备正常，网络环境可满足直播条件",
+		    "16": "请注意！不允许使用锚的图片作为自己的头像。",
+		    "17": "请注意！它不允许设置一个黑色的图片作为头像。",
+		    "18": "请注意！您的用户名不合适，请改变它。"
+		};
+	this.scam_ar = {
+			"0": "انتبه! الرجاء تحسين الاضاءة أثناء عمل البث ، لتظهر بشكل جيد لمتابعينك",
+			"1": "انتبه! يجب مراعاه جودة الكاميرا لتكون صورتك واضحة للمتابعين",
+			"2": "انتبه! يجب مراعاه وضعية الكاميرا بالنسبة لوجهك أثناء البث",
+			"3": "انتبه! يجب الاهتمام بحسن المظهر أثناء البث، فالمظهر الجيد يترك أنطباع جيد لدي المستخدمين",
+			"4": "انتبه! يمنع عرض الأفلام والفيديوهات مع انعدام التفاعل الصوتي أثناء تشغيلها",
+			"5": "انتبه! شاشتك تظهر سوداء لمتابعينك، فضلاً تحقق من معدات البث",
+			"6": "انتبه! يجب الانتباه والتفاعل أثناء عمل البث لكي يزيد عدد المتابعين في الأستوديو الخاص بك",
+			"7": "انتبه! الرجاء عدم الانشغال بالهاتف لفتره طويلة، لكي لا يظن متابعينك أنك غير مهتم بوجودهم",
+			"8": "انتبه! الرجاء تحسين خلفية العرض أثناء البث، بحيث تكون أنيقه ومرتبه ونظيفه لكي يظهرعرضك بشكل جذاب  ",
+			"9": "انتبه! يمنع عرض الأفلام الغير مصرح بنشرها حفاظاً على حقوق الملكية     ",
+			"10": "انتبه! يجب الانتباه لوضعية المايك لكي لا يحجب وجهك و يمنع المشاهدين من رؤيتك بوضوح",
+			"11": "انتبه! يجب التحقق من المايك والتأكد من عمله بشكل صحيح لتجنب وجود ضوضاء أو انقطاع في الصوت ",
+			"12": "انتبه! يمنع الاستلقاء الكلي أو الجزئي  أثناء البث ",
+			"13": "انتبه! يمنع تغطية الكاميرا وعدم ظهور المضيف أثناء البث ",
+			"14": "انتبه! تركك للبث بشكل متكرر قد يجعل متابعينك يقوموا بمغادرة الأستوديو الخاص بك",
+			"15": "انتبه! البث متقطع الرجاء تحسين سرعة الانترنت لكي لا يعاني متابعينك من سوء جودة البث مما يؤثر على دخلك",
+		    "16": "انتبه! يمنع وضع صور خاصة بمضيفين الموقع كصورة للبروفايل الخاص بك.",
+		    "17": "انتبه! يمنع وضع صورة سوداء كصورة البروفايل الخاصة بك.",
+		    "18": "عذراً! اسم المستخدم الخاص بك غير ملائم الرجاء تغييره."
+		};
+	this.scam_tr = {
+			"0" : "Lütfen odanın ışıklarının açık olduğundan emin olun, karanlık bir ortamda yayın yapmayın!",
+			"1" : "Kameranızın kaliteli bir çekim yaptığından emin olun, ayrıca kamerayı koyduğunuz pozisyonu iyi ayarlayın!",
+			"2" : "Yayını uzun süreli terketmeyin, kullanıcılar sıkılıp yayını terkedebilir!",
+			"3" : "Dış görünümünüze dikkat edin, güzel ve özenli giyinin!",
+			"4" : "Yayın için gerekli olan ekipmanları ve internetinizi önceden hazır hale getirin!",
+			"5" : "Kullanıcılarla karşılıklı iyi bir etkileşim kurmaya dikkat edin. Unutmayın ki iyi iletişim daha fazla kullanıcı demektir. Ayrıca; mümkün olduğunca sizi takip etmelerini ve hediye göndermelerini rica edin!",
+			"6" : "Yayın esnasında uzun süre telefonla konuşmak veya telefonla oynamak yasaktır!",
+			"7" : "Yayına başlamadan önce arka planınızı ayarlayın. Estetik bir dekorasyon oluşturmaya gayret edin!",
+			"8" : "Sadece yayın saatlerini doldurmak amacıyla, kamera karşısında bulunmadan, uzun süreli film veya video koymak yasaktır!",
+			"9" : "Mikrofonun, yüzünüzü kapatmadığından emin olun!",
+			"10" : "Mikrofonunuzun sorunsuz çalıştığından emin olun. Mikrofonla alakalı sorunlar izleyicilerinizi olumsuz etkileyecektir!",
+			"11" : "Haahi yöneticilerinin talimatlarına ve kurallara uymak zorundasınız!",
+			"12" : "Yayın esnasında yatmak/uzanmak kesinlikle yasaktır!",
+			"13" : "Yayın yaparken kameranın görüş açısını engelleyecek şekilde üzerini örtmeyin!",
+			"14" : "Yayıncılar, yayın için istenen tüm şartları yerine getirmek zorundadır.",
+			"15" : "Yayıncılar, yayın için istenen tüm şartları yerine getirmek zorundadır."
+	};
+	this.scam_en = {
+			"0" : "Please pay attention to adjust lights in the room and make sure light is turned on.",
+			"1" : "Please make sure that you are using good quality camera and pay attention to meet the requirements about positioning while broadcasting.",
+			"2" : "Please pay attention to the camera right position in front of your face.",
+			"3" : "Please pay attention to dress appropriately and make sure you look nice .",
+			"4" : "Please pay attention not to broadcast any videos or movies without commenting or interacting.",
+			"5" : "Please adjust your equipment, and network and avoid the screen getting black in the process of live stream.",
+			"6" : "Please pay attention to have a very good interactive communication with users. Don't forget that, better communication brings more users .and remind users to follow you and send you gifts.",
+			"7" : "It is forbidden to speak and play with the phone during broadcast for a long time.",
+			"8" : "Please pay attention to have a rich background while  broadcasting . You can decorate your background with toys, books, etc...",
+			"9" : "It is forbidden to broadcast unauthorized film and television shows.",
+			"10" : "Please pay attention that your microphone doesn't block your face.",
+			"11" : "Please make sure your microphone doesn't have any problem. All problems with microphone will effect your audience.",
+			"12" : "Laying down while broadcasting is strictly prohibited.",
+			"13" : "Please don’t cover the camera while broadcasting.",
+			"14" : "Hosts can't leave the broadcast frequently within one hour.",
+			"15" : "Please pay attention to the quality of your internet, slow connection makes your audience leave the room. ",
+		    "16" : "Please pay attention! it's not allowed to use anchors pictures as your own profile picture.",
+		    "17" : "Please pay attention! it's not allowed to setup a black picture as profile picture.",
+		    "18" : "Please pay attention! your user name is not appropriate please change it."
+		};
+	
+	//警告类违规
+	this.law_cn = {
+			" 0" : "禁止在三分钟内离开广播屏幕。",
+			" 1" : "严格禁止色情作品的表演，以及主持人和其他相关内容的任何性行为或声音。",
+			" 2" : "禁止广播而不是真正的主持人。",
+			" 3" : "性着装是严格禁止的。",
+			" 4" : "在广播中严禁吸烟。",
+			" 5" : "禁止使用任何旧的录音声音或录像来浪费时间。",
+			" 6" : "任何针对他人的恶意和诽谤攻击都是被禁止的，也包括种族主义或任何形式的言论。",
+			" 7" : "禁止滥用和散布有关政府的谣言",
+			" 8" : "禁止煽动或挑起与用户的争吵。",
+			" 9" : "禁止谈论宗教和政治，或任何与之相关的东西。",
+			" 10" : "禁止推广或宣传任何与我们类似的平台或网站。",
+			" 11" : "禁止破坏人类的生命和威胁人类的安全。",
+			" 12" : "禁止展示或谈论毒品，或展示如何使用毒品。所有关于毒品的内容都是禁止的。",
+			" 13" : "禁止在现场表演中反对政府的法律。",
+			" 14" : "禁止饮酒。",
+		    " 15" : "请注意！这是不允许的人谁是16岁以下的广播。",
+		    " 16" : "请注意！不允许提供一张显示宗派不容忍或包含武器照片的侧面照片。",
+		    " 17" : "禁止不穿适当的衣服covring你广播。",
+		    " 18" : "请注意！它不允许安装酒精图片资料图片",
+		    " 19" : "请注意！它不允许安装不当或性的图片作为头像。"
+
+		};
+	
+	this.law_ar = {
+			"0" : "عذراً! يمنع بتاتاً ترك البث لأكثر من 3 دقائق تجنباً لمغادرة المستخدمين الأستوديو الخاص بك ",
+			"1" : "عذراً! يمنع قطعاً أداء أو عرض أي محتوى إباحي  .",
+			"2" : "عذراً! يمنع تواجد شخص آخر في البث عوضاً عن المضيف الأصلي",
+			"3" : "عذراً! الملابس التي ترتديها خالفت القوانين الخاصة بالملابس في 7 نجوم، الرجاء طلب ملف تأهيل المضيفين من إدارتك.",
+			"4" : "عذراً! يمنع قطعاً التدخين بجميع أشكاله",
+			"5" : "عذراً! يمنع عرض فيديوهات مسجله لك أثناء البث بهدف هدر الوقت",
+			"6" : "عذراً! يمنع توجيه أي إهانة لأي عرق أو شعب أو دولة",
+			"7" : "عذراً! يمنع تشوية ونشر اشاعات حول منصة 7 نجوم",
+			"8" : "عذراً! يمنع التشاجر وتبادل السباب مع أي مستخدم اياً كانت الاسباب",
+			"9" : "عذراً! يمنع بتاتا التحدث بكل ما يتعلق بالسياسة أو الدين أثناء البث المباشر ",
+			"10" : "عذراً! يمنع الترويج لمنصات أخرى مشابهة لمنصة 7 نجوم",
+			"11" : "عذراً! يمنع عرض المشاهد الخطرة للحفاظ علي السلامة العامة",
+			"12" : "عذراً! يمنع تعاطي أو ترويج المخدرات بجميع أشكالها ",
+			"13" : "عذراً! يمنع التحدث ما يمس حرمة قوانين أي دولة",
+			"14" : "عذراً! يمنع قطعاً شرب الكحوليات بجميع أشكالها",
+		    "15" : "انتبه! غير مسموح لأي شخص تحت سن 16 بالبث المباشر.",
+		    "16" : "انتبه! يمنع وضع صورة بروفايل توحي بتعصب طائفي أو تحتوي على صور أسلحة.",
+		    "17" : "انتبه! يمنع منعاً باتاً ظهورك أثناء البث بدون ملابس.",
+		    "18" : "انتبه! يمنع وضع صور الخمور كصورة البروفايل الخاصة بك.",
+		    "19" : "انتبه! يمنع وضع صورة ذات محتوى إباحي أو مخلة بالآداب كصورة البروفايل الخاصة بك. "
+		};
+	
+	this.law_tr = {
+			"0" : "Haahi yöneticilerinin söylediklerini dikkate alıp, talimatlara muhakkak uymanız gerekmektedir.",
+			"1" : "Mola için verilen 4 dakikalık süre haricinde, yayını terketmek yasaktır!",
+			"2" : "Yayın esnasında pornografik, erotik veya herhangi seksüel anlamda görsel veya sesli harekette bulunmak yada içerik yayınlamak kesinlikle yasaktır!",
+			"3" : "Kendi yerinize, başkasına yayın yaptırmak yasaktır!",
+			"4" : "Fazla açık giyinmek yasaktır!",
+			"5" : "Yayın esnasında sigara içmek yasaktır!",
+			"6" : "Ses veya video kaydını kullanmak yasaktır!",
+			"7" : "Başkaları hakkında kötü niyetli konuşmak veya iftira atmak yasaktır.",
+			"8" : "Yönetim hakkında olumsuz söylentiler yaymak veya küçük düşürücü ifadeler kullanmak yasaktır!",
+			"9" : "Kullanıcıları kışkırtmak, kavga çıkartmak ve huzuru bozmak yasaktır!",
+			"10" : "Olumsuz söylentiler yaymak, kullanıcı ve yayıncıları rahatsız etmek, topluluğa zarar verici ve huzursuz edici hareketlerde bulunarak platform kurallarını çiğnemek yasaktır!",
+			"11" : "Din veya politika hakkında konuşmak yasaktır!",
+			"12" : "Haahi ile benzer konsepte sahip platformların reklamını yapmak yasaktır!",
+			"13" : "Yayın esnasında insan hayatını tehlikeye atan, güvenliği tehdit eden içeriklerde gösteri yapmak yasaktır!",
+			"14" : "Uyuşturucu hakkında konuşmak ve uyuşturucu ve uyuşturuc ile alakalı materyalleri göstermek yasaktır!"
+		};
+	
+	this.law_en = {
+			"0" : "It's forbidden to leave broadcast screen more than three minutes.",
+			"1" : "It is strictly prohibited the performance of porn, and any sexual act or sound by the host and any other related contents.",
+			"2" : "It's forbidden to broadcast instead of the real host.",
+			"3" : "Sexual dressing is strictly forbidden.",
+			"4" : "Smoking is strictly forbidden while broadcasting.",
+			"5" : "It's forbidden to use any old recording sound or video of you to waste time.",
+			"6" : "Any malicious and slander attacks against others is forbidden, as well as racism or any rasict expressions.",
+			"7" : "It's forbidden to abuse and spread rumors about the administration",
+			"8" : "It's forbidden to incite or start a quarrel with the Users.",
+			"9" : "It's forbidden to talk about religion and politics or anything related.",
+			"10" : "It's forbidden to promote or advertise any other platform or website similar to ours.",
+			"11" : "It's forbidden to perform damaging human life and threatening human safety.",
+			"12" : "It's forbidden to show or talk about drugs, or show how to use drugs. All contents about drugs are forbidden.",
+			"13" : "It is forbidden to speak against government laws in live show.",
+			"14" : "It is forbidden to drink alcohol.",
+		    "15" : "Please pay attention! it's not allowed for people who are under 16 years old to broadcast.",
+		    "16" : "Please pay attention! it's not allowed to put a profile picture that suggests sectarian intolerance or contains pictures of weapons.",
+		    "17" : "it's forbidden broadcast without wearing proper clothes covring you.",
+		    "18" : "Please pay attention! it's not allowed to setup alcohol picture as profile picture.",
+		    "19" : "Please pay attention! it's not allowed to setup an inappropriate or sexual picture as profile picture."
+		};
+}

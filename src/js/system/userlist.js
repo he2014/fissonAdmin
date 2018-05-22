@@ -17,9 +17,9 @@ $(document).ready(function() {
                 return 0;
             }
         } else {
-            return e.functionInfoBeans && e.functionInfoBeans.length > 0
-                ? e.functionInfoBeans.length
-                : 1;
+            return e.functionInfoBeans && e.functionInfoBeans.length > 0 ?
+                e.functionInfoBeans.length :
+                1;
         }
     }
 
@@ -39,13 +39,16 @@ $(document).ready(function() {
                 return 0;
             }
         } else {
-            return e.functionInfoBeans && e.functionInfoBeans.length > 0
-                ? e.functionInfoBeans.length
-                : 1;
+            return e.functionInfoBeans && e.functionInfoBeans.length > 0 ?
+                e.functionInfoBeans.length :
+                1;
         }
     }
     var user_taable = (window["user_taable"] = {
         init: function() {
+            this.user_message_functions = "";
+            this.role_message_functions = ""
+            util.functions();
             var _this = this;
             new Promise(function(resolve) {
                 _this.getUserList(1);
@@ -120,9 +123,9 @@ $(document).ready(function() {
                         ) {
                             var pageCount = data.dataInfo.total / datas.size;
                             var count =
-                                pageCount > Math.floor(pageCount)
-                                    ? Math.floor(pageCount) + 1
-                                    : pageCount;
+                                pageCount > Math.floor(pageCount) ?
+                                Math.floor(pageCount) + 1 :
+                                pageCount;
                             var htmls = _this.getListHtmls(data.dataInfo.list);
                             $("#UserList").html(htmls);
                             _this.binds();
@@ -205,8 +208,7 @@ $(document).ready(function() {
                 .unbind("click")
                 .click(function() {
                     postAjax(
-                        "sysuser/manage/role",
-                        {
+                        "sysuser/manage/role", {
                             id: user_taable.role_userID,
                             rids: data.join(",")
                         },
@@ -313,8 +315,7 @@ $(document).ready(function() {
                     if (ps && un) {
                         if (!regex.test(ps)) {
                             $.Huimodalalert("密码格式不正确！", 1500);
-                        } else if (
-                            !regex.test(ps) &&
+                        } else if (!regex.test(ps) &&
                             (ps.length < 6 || ps.length > 20)
                         ) {
                             $.Huimodalalert("密码格式不正确！", 1500);
@@ -442,6 +443,7 @@ $(document).ready(function() {
         },
         function_edit: function(roleIdFun) {
             $("#functionEdit").modal("show");
+
             functiontable.init(roleIdFun);
         },
         function_edit_name(roleNameFun) {
@@ -556,8 +558,7 @@ $(document).ready(function() {
             var _this = this;
             if (page) {
                 getAjax(
-                    "sysuser/manage/list",
-                    {
+                    "sysuser/manage/list", {
                         page: page,
                         size: 10,
                         r: $('select[name="user-search"]').val()
@@ -568,7 +569,7 @@ $(document).ready(function() {
                         _this.binds();
                         util.page_html(
                             "user_layerPage",
-                            1,
+                            msg.dataInfo.page,
                             msg.dataInfo.pageCount,
                             "user_taable.userSelectChange"
                         );
@@ -583,8 +584,7 @@ $(document).ready(function() {
                         user_taable.getUserList(1);
                     } else {
                         getAjax(
-                            "sysuser/manage/list",
-                            {
+                            "sysuser/manage/list", {
                                 page: 1,
                                 size: 10,
                                 r: val
@@ -661,26 +661,21 @@ $(document).ready(function() {
             // $("#functionTable").html(" ");
             $("#pageTable").html(
                 "<tr> " +
-                    "<td>顶部菜单</td>" +
-                    "<td>左侧菜单</td>" +
-                    "<td>资源</td>" +
-                    "<td>是否有进入权限</td>" +
-                    "</tr>"
+                "<td>顶部菜单</td>" +
+                "<td>左侧菜单</td>" +
+                "<td>资源</td>" +
+                "<td>是否有进入权限</td>" +
+                "</tr>"
             );
             var htmlTemplate = {
                 td: '<td style="height:{0}px" id="{1}" pid="{2}">{3}</td>',
-                trtd:
-                    ' <tr> <td style="height: {0}px;" id="{1}" pid="{2}">{3}</td></tr>',
+                trtd: ' <tr> <td style="height: {0}px;" id="{1}" pid="{2}">{3}</td></tr>',
                 lasttrtd: ' <tr> <td id="{0}" pid="{1}">{2}</td></tr>',
-                lasttrtdNotWithBottun:
-                    ' <tr> <td id="{1}" pid="{2}" style="height: 30px; border-bottom: none;">{3}</td></tr>',
-                trtdNotWithBottum:
-                    ' <tr> <td style="height: {0}px;border-bottom: none;" id="{1}" pid="{2}" class="mybutton">{3}</td></tr>',
+                lasttrtdNotWithBottun: ' <tr> <td id="{1}" pid="{2}" style="height: 30px; border-bottom: none;">{3}</td></tr>',
+                trtdNotWithBottum: ' <tr> <td style="height: {0}px;border-bottom: none;" id="{1}" pid="{2}" class="mybutton">{3}</td></tr>',
                 tdtable: "<td><table>{0}</table></td>",
-                tdconst:
-                    '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有资源</td></tr></table>',
-                symbol:
-                    '<form class="_privilege" name="from1" id="form{0}" action=""><input {1}  type="radio" name="judge" class="yes"/><label>是</label><input {2} name="io" type="radio" class="no"/><label>否</label></form> '
+                tdconst: '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有资源</td></tr></table>',
+                symbol: '<form class="_privilege" name="from1" id="form{0}" action=""><input {1}  type="radio" name="judge" class="yes"/><label>是</label><input {2} name="io" type="radio" class="no"/><label>否</label></form> '
             };
 
             getAjax("privilege/user/page/" + msg, {}, function(data) {
@@ -812,15 +807,15 @@ $(document).ready(function() {
                             '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有资源</td></tr></table>';
                     }
                     template +=
-                        (td1 == ""
-                            ? ""
-                            : stringFormat(htmlTemplate.tdtable, td1)) +
-                        (td2 == ""
-                            ? ""
-                            : stringFormat(htmlTemplate.tdtable, td2)) +
-                        (td3 == ""
-                            ? ""
-                            : stringFormat(htmlTemplate.tdtable, td3)) +
+                        (td1 == "" ?
+                            "" :
+                            stringFormat(htmlTemplate.tdtable, td1)) +
+                        (td2 == "" ?
+                            "" :
+                            stringFormat(htmlTemplate.tdtable, td2)) +
+                        (td3 == "" ?
+                            "" :
+                            stringFormat(htmlTemplate.tdtable, td3)) +
                         "</tr>";
                     $("#pageTable").append(template);
                 });
@@ -875,8 +870,7 @@ $(document).ready(function() {
                 .click(function() {
                     if (bool) {
                         postAjax(
-                            "privilege/page/update/0/" + msg,
-                            {
+                            "privilege/page/update/0/" + msg, {
                                 rids: ids
                             },
                             function(data) {
@@ -906,29 +900,24 @@ $(document).ready(function() {
             // $("#functionTable").html(" ");
             $("#functionTable").html(
                 "<tr> " +
-                    "<td>顶部菜单</td>" +
-                    "<td>左侧菜单</td>" +
-                    "<td>资源</td>" +
-                    "<td>是否有进入权限</td>" +
-                    "</tr>"
+                "<td>顶部菜单</td>" +
+                "<td>左侧菜单</td>" +
+                "<td>资源</td>" +
+                "<td>是否有进入权限</td>" +
+                "</tr>"
             );
 
             var htmlTemplate = {
                 td: '<td style="height:{0}px" id="{1}" pid="{2}">{3}</td>',
-                trtd:
-                    ' <tr> <td style="height: {0}px;" id="{1}" pid="{2}">{3}</td></tr>',
+                trtd: ' <tr> <td style="height: {0}px;" id="{1}" pid="{2}">{3}</td></tr>',
                 lasttrtd: ' <tr> <td id="{0}" pid="{1}">{2}</td></tr>',
-                lasttrtdNotWithBottun:
-                    ' <tr> <td id="{0}"  pid="{1}" style="height: 30px; border-bottom: none;">{2}</td></tr>',
-                trtdNotWithBottum:
-                    ' <tr> <td style="height: {0}px;border-bottom: none;" id="{1}" pid="{2}" class="mybutton">{3}</td></tr>',
+                lasttrtdNotWithBottun: ' <tr> <td id="{0}"  pid="{1}" style="height: 30px; ">{2}</td></tr>',
+                trtdNotWithBottum: ' <tr> <td style="height: {0}px;border-bottom: none;" id="{1}" pid="{2}" class="mybutton">{3}</td></tr>',
                 tdtable: "<td><table>{0}</table></td>",
-                tdconst:
-                    '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有资源</td></tr></table>',
+                tdconst: '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有资源</td></tr></table>',
                 // symbol: '<form class="_functionBtnForm" name="from1" id="form{0}" action=""><input {1}  type="radio" name="judge" class="yes"/><label>是</label><input {2} name="io" type="radio" class="no"/><label>否</label></form> ',
                 symbol: '<td class="td-manage" id="{1}">{0}</td>',
-                form:
-                    '<form class="_functionBtnForm" name="from1" id="form{0}" action=""><input {1} type="radio" name="judge" class="yes"/><label>是</label><input {2} name="judge" type="radio" class="no"/><label>否</label></form>'
+                form: '<form class="_functionBtnForm" name="from1" id="form{0}" action=""><input {1} type="radio" name="judge" class="yes"/><label>是</label><input {2} name="judge" type="radio" class="no"/><label>否</label></form>'
             };
             getAjax("privilege/user/function/" + msg, {}, function(data) {
                 //顶部菜单
@@ -1003,25 +992,25 @@ $(document).ready(function() {
                                             function(value3, index3, array3) {
                                                 if (
                                                     index2 ==
-                                                        array2.length - 1 &&
+                                                    array2.length - 1 &&
                                                     index3 == array3.length - 1
                                                 ) {
                                                     var bool1 = "checked",
                                                         bool2 = "";
                                                     if (
                                                         value3.permissionValue ==
-                                                            0 &&
+                                                        0 &&
                                                         value3.functionPermissionType ==
-                                                            0
+                                                        0
                                                     ) {
                                                         bool1 = "";
                                                         bool2 = "checked";
                                                     }
                                                     var $fun =
                                                         value3.functionRange ==
-                                                        0
-                                                            ? value3.users
-                                                            : value3.roles;
+                                                        0 ?
+                                                        value3.users :
+                                                        value3.roles;
                                                     if ($fun.length > 0) {
                                                         var dataArray = [];
                                                         $fun.forEach(function(
@@ -1032,9 +1021,9 @@ $(document).ready(function() {
                                                                 1
                                                             ) {
                                                                 /*待测*/
-                                                                var itemid = items.userId
-                                                                    ? items.userId
-                                                                    : items.roleId;
+                                                                var itemid = items.userId ?
+                                                                    items.userId :
+                                                                    items.roleId;
                                                                 dataArray.push(
                                                                     itemid
                                                                 );
@@ -1044,44 +1033,42 @@ $(document).ready(function() {
                                                             dataArray.length > 0
                                                         ) {
                                                             _this.ids.push({
-                                                                id:
-                                                                    value3.functionId,
+                                                                id: value3.functionId,
                                                                 data: dataArray
                                                             });
                                                         }
                                                     }
                                                     var roleRoUSER =
                                                         value3.functionRange ==
-                                                        0
-                                                            ? "user"
-                                                            : "role";
+                                                        0 ?
+                                                        "user" :
+                                                        "role";
+
+                                                    if (roleRoUSER == "user") {
+                                                        _this.user_message_functions = $fun;
+                                                    } else {
+                                                        _this.role_message_functions = $fun
+                                                    }
                                                     var formOrBtn =
                                                         value3.functionPermissionType ==
-                                                        0
-                                                            ? stringFormat(
-                                                                  htmlTemplate.form,
-                                                                  value3.functionId,
-                                                                  bool1,
-                                                                  bool2
-                                                              )
-                                                            : "<a  class='_function_messages" +
-                                                              roleRoUSER +
-                                                              "' data-recource=" +
-                                                              value3.functionId +
-                                                              " data-key=" +
-                                                              JSON.stringify(
-                                                                  $fun
-                                                              ) +
-                                                              ">权限详情</a>";
+                                                        0 ?
+                                                        stringFormat(
+                                                            htmlTemplate.form,
+                                                            value3.functionId,
+                                                            bool1,
+                                                            bool2
+                                                        ) :
+                                                        "<a  class='_function_messages" +
+                                                        roleRoUSER +
+                                                        "' data-recource=" + value3.functionId + ">权限详情</a>";
                                                     if (
                                                         value3.permissionValue ==
-                                                            1 &&
+                                                        1 &&
                                                         value3.functionPermissionType ==
-                                                            0
+                                                        0
                                                     )
                                                         _this.ids.push({
-                                                            id:
-                                                                value3.functionId,
+                                                            id: value3.functionId,
                                                             data: [1]
                                                         });
                                                     var symbols = stringFormat(
@@ -1094,25 +1081,25 @@ $(document).ready(function() {
                                                         value3.functionId,
                                                         value3.resourceId,
                                                         value3.functionName +
-                                                            symbols
+                                                        symbols
                                                     );
                                                 } else {
                                                     var bool3 = "checked",
                                                         bool4 = "";
                                                     if (
                                                         value3.permissionValue ==
-                                                            0 &&
+                                                        0 &&
                                                         value3.functionPermissionType ==
-                                                            0
+                                                        0
                                                     ) {
                                                         bool3 = "";
                                                         bool4 = "checked";
                                                     }
                                                     var $funs =
                                                         value3.functionRange ==
-                                                        0
-                                                            ? value3.users
-                                                            : value3.roles;
+                                                        0 ?
+                                                        value3.users :
+                                                        value3.roles;
                                                     if ($funs.length > 0) {
                                                         var dataArrays = [];
                                                         $funs.forEach(function(
@@ -1122,9 +1109,9 @@ $(document).ready(function() {
                                                                 items.permitted ==
                                                                 1
                                                             ) {
-                                                                var itemid = items.userId
-                                                                    ? items.userId
-                                                                    : items.roleId;
+                                                                var itemid = items.userId ?
+                                                                    items.userId :
+                                                                    items.roleId;
                                                                 dataArrays.push(
                                                                     itemid
                                                                 );
@@ -1136,44 +1123,42 @@ $(document).ready(function() {
                                                         ) {
                                                             /*待测*/
                                                             _this.ids.push({
-                                                                id:
-                                                                    value3.functionId,
+                                                                id: value3.functionId,
                                                                 data: dataArrays
                                                             });
                                                         }
                                                     }
                                                     var roleRoUSERs =
                                                         value3.functionRange ==
-                                                        0
-                                                            ? "user"
-                                                            : "role";
+                                                        0 ?
+                                                        "user" :
+                                                        "role";
+                                                    if (roleRoUSERs == "user") {
+                                                        _this.user_message_functions = $funs;
+                                                    } else {
+                                                        _this.role_message_functions = $funs
+                                                    }
                                                     var formOrBtn =
                                                         value3.functionPermissionType ==
-                                                        0
-                                                            ? stringFormat(
-                                                                  htmlTemplate.form,
-                                                                  value3.functionId,
-                                                                  bool3,
-                                                                  bool4
-                                                              )
-                                                            : "<a class='_function_messages" +
-                                                              roleRoUSERs +
-                                                              "' data-recource=" +
-                                                              value3.functionId +
-                                                              " data-key=" +
-                                                              JSON.stringify(
-                                                                  $funs
-                                                              ) +
-                                                              ">权限详情</a>";
+                                                        0 ?
+                                                        stringFormat(
+                                                            htmlTemplate.form,
+                                                            value3.functionId,
+                                                            bool3,
+                                                            bool4
+                                                        ) :
+                                                        "<a class='_function_messages" +
+                                                        roleRoUSERs +
+                                                        "' data-recource=" +
+                                                        value3.functionId + ">权限详情</a>";
                                                     if (
                                                         value3.permissionValue ==
-                                                            1 &&
+                                                        1 &&
                                                         value3.functionPermissionType ==
-                                                            0
+                                                        0
                                                     )
                                                         _this.ids.push({
-                                                            id:
-                                                                value3.functionId,
+                                                            id: value3.functionId,
                                                             data: [1]
                                                         });
                                                     var symbols = stringFormat(
@@ -1186,7 +1171,7 @@ $(document).ready(function() {
                                                         value3.functionId,
                                                         value3.resourceId,
                                                         value3.functionName +
-                                                            symbols
+                                                        symbols
                                                     );
                                                 }
                                             }
@@ -1225,17 +1210,18 @@ $(document).ready(function() {
                             '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有功能</td></tr></table>';
                     }
                     template +=
-                        (td1 == ""
-                            ? ""
-                            : stringFormat(htmlTemplate.tdtable, td1)) +
-                        (td2 == ""
-                            ? ""
-                            : stringFormat(htmlTemplate.tdtable, td2)) +
-                        (td3 == ""
-                            ? ""
-                            : stringFormat(htmlTemplate.tdtable, td3)) +
+                        (td1 == "" ?
+                            "" :
+                            stringFormat(htmlTemplate.tdtable, td1)) +
+                        (td2 == "" ?
+                            "" :
+                            stringFormat(htmlTemplate.tdtable, td2)) +
+                        (td3 == "" ?
+                            "" :
+                            stringFormat(htmlTemplate.tdtable, td3)) +
                         "</tr>";
                     $("#functionTable").append(template);
+                    $("#functionTable tr td table tr:last td").eq(0).css('border', 0);
                 });
                 _this.binds(msg);
                 _this.functionLayer(msg);
@@ -1248,7 +1234,8 @@ $(document).ready(function() {
                 .unbind("click")
                 .click(function() {
                     // console.log($(this).data("key"))
-                    var data = $(this).data("key"); //获取数据
+                    if (!_this.role_message_functions) return;
+                    var data = _this.role_message_functions; //获取数据
                     var pid = $(this).data("recource"); //获取当前功能ID
                     var list =
                         '<li data-id={0}>\
@@ -1258,12 +1245,12 @@ $(document).ready(function() {
                     if (data && data.length > 0 && data != "undefind") {
                         data.forEach(function(item) {
                             var bool = item.permitted == 1 ? "checked" : "";
-                            var userID = item.userId
-                                ? item.userId
-                                : item.roleId;
-                            var name = item.loginName
-                                ? item.loginName
-                                : item.roleName;
+                            var userID = item.userId ?
+                                item.userId :
+                                item.roleId;
+                            var name = item.loginName ?
+                                item.loginName :
+                                item.roleName;
                             htmls += stringFormat(list, userID, bool, name);
                         });
                         var $html =
@@ -1317,7 +1304,8 @@ $(document).ready(function() {
                 .unbind("click")
                 .click(function() {
                     // console.log($(this).data("key"))
-                    var data = $(this).data("key");
+                    if (!_this.user_message_functions) return;
+                    var data = _this.user_message_functions;
                     var pid = $(this).data("recource");
                     var list =
                         '<li data-id={0}>\
@@ -1326,14 +1314,17 @@ $(document).ready(function() {
                     // $("#user_permissions").modal("show");
                     var htmls = "";
                     if (data && data.length > 0) {
+                        if (typeof data == "string") {
+                            data = JSON.parse(data)
+                        }
                         data.forEach(function(item) {
                             var bool = item.permitted == 1 ? "checked" : "";
-                            var userID = item.userId
-                                ? item.userId
-                                : item.roleId;
-                            var name = item.loginName
-                                ? item.loginName
-                                : item.roleName;
+                            var userID = item.userId ?
+                                item.userId :
+                                item.roleId;
+                            var name = item.loginName ?
+                                item.loginName :
+                                item.roleName;
                             htmls += stringFormat(list, userID, bool, name);
                         });
                         var $html =
@@ -1420,8 +1411,7 @@ $(document).ready(function() {
                         var arrid = _this.ids;
                         var ids = util.objArray(arrid, "id");
                         postAjax(
-                            "privilege/function/update/0/" + msg,
-                            {
+                            "privilege/function/update/0/" + msg, {
                                 c: JSON.stringify(ids)
                             },
                             function(data) {

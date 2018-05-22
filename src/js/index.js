@@ -1,9 +1,9 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var resource_data = null;
     var resource = {
-        init: function() {
+        init: function () {
             var _this = this;
-            getAjax("sysuser", {}, function(data) {
+            getAjax("sysuser", {}, function (data) {
                 if (data.code == 0) {
                     resource_data = data.dataInfo.resources;
                     function_data = data.dataInfo.functions;
@@ -12,10 +12,10 @@ $(document).ready(function() {
                 }
             });
         },
-        render: function(data) {
+        render: function (data) {
             var resources = "";
             var menu = "";
-            $.each(data, function(index, item) {
+            $.each(data, function (index, item) {
                 resources +=
                     '<li class="navbar-levelone " id=' +
                     item.id +
@@ -24,11 +24,11 @@ $(document).ready(function() {
                     "</a></li>";
 
                 if (item.childs && item.childs.length > 0) {
-                    $.each(item.childs, function(ind, ite) {
+                    $.each(item.childs, function (ind, ite) {
                         menu +=
                             '<div class="menu_dropdown bk_2 ' +
                             item.id +
-                            '" style="display:none">';
+                            '" style="display:none" id="' + item.id + '">';
                         menu += '<dl id="menu-article">';
                         var icon = ite.icon ? ite.icon : "&#xe616;";
                         menu +=
@@ -40,7 +40,7 @@ $(document).ready(function() {
                         menu += "<dd>";
                         menu += "<ul>";
                         if (ite.childs && ite.childs.length > 0) {
-                            $.each(ite.childs, function(inds, key) {
+                            $.each(ite.childs, function (inds, key) {
                                 menu +=
                                     '<li  data-reID="' +
                                     key.id +
@@ -63,33 +63,27 @@ $(document).ready(function() {
 
             this.binds();
         },
-        binds: function() {
+        binds: function () {
             $(".Hui-aside").Huifold({
                 titCell: ".menu_dropdown dl dt",
                 mainCell: ".menu_dropdown dl dd"
             });
-            $(".menu_dropdown")
-                .eq(0)
-                .show();
+            /**
+             * 默认显示内容
+             */
+            var showIndex = $(".menu_dropdown").eq(0).attr('id');
+            $(".Hui-aside ." + showIndex).show();
             /*选项卡导航*/
-            $(".Hui-aside").on("click", ".menu_dropdown a", function() {
+            $(".Hui-aside").on("click", ".menu_dropdown a", function () {
                 /*存当前资源ID*/
-
-                util.Storage.set(
-                    "resourceId",
-                    $(this)
-                        .parent("li")
-                        .attr("data-reID")
-                );
+                util.Storage.set("resourceId", $(this).parent("li").attr("data-reID"));
                 Hui_admin_tab(this);
             });
-            $("#navbar-navs li")
-                .unbind("click")
-                .click(function() {
-                    $(".Hui-aside .menu_dropdown").hide();
-                    var index = $(this).attr("id");
-                    $(".Hui-aside ." + index).show();
-                });
+            $("#navbar-navs li").unbind("click").click(function () {
+                $(".Hui-aside .menu_dropdown").hide();
+                var index = $(this).attr("id");
+                $(".Hui-aside ." + index).show();
+            });
         }
     };
     resource.init();

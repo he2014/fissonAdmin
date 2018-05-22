@@ -24,12 +24,18 @@ html, body, div, span, applet, object, input, iframe, h1, h2, h3, h4, h5, h6, p,
     -webkit-highlight: none;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0); */
 }
-.hide{
+
+.hide, .layui-upload-choose {
     display: none !important;
 }
+
 table {
     border-collapse: separate;
     border-spacing: 0;
+}
+
+a {
+    text-decoration: none;
 }
 
 caption, th, td {
@@ -76,6 +82,16 @@ select {
     display: none !important;
 }
 
+.admin_bar {
+    height: 40px;
+    margin: 20px 0;
+    padding: 0 20px;
+    background: #F2F2F2;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 /* Hides from IE-mac \*/
 
 *html .clearfix {
@@ -84,4 +100,20 @@ select {
 
 .clearfix {
     display: block;
+}
+
+.form-out {
+    width: 94%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    padding: 5px 0;
+    margin: 0 3%;
+}
+
+.form-lable {
+    padding: 5px 10px;
+    width: 120px;
 }

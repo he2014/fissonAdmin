@@ -71,6 +71,10 @@
 			border-bottom: 1px solid #0094ff;
 		}
 
+		#functionTable td#81 {
+			border-bottom: 1px solid #0094ff !important;
+		}
+
 		#functionTable tr td tr td {
 			border-right: none;
 			border-bottom: 1px solid #0094ff;
@@ -148,12 +152,11 @@
 	<nav class="breadcrumb">
 		<i class="Hui-iconfont">&#xe62e;</i> 系统管理
 		<span class="c-gray en">&gt;</span> 系统用户管理
-		<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);"
-		 title="刷新">
+		<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
 			<i class="Hui-iconfont">&#xe68f;</i>
 		</a>
 	</nav>
-	<div class="page-container">
+	<div class="page-container" data-btn="userSearch1">
 		<!-- 查询条件 -->
 		<div class="text">
 			<select style="height:30px;box-sizing: border-box;border: solid 1px #ddd; font-size:14px;" name="user-search" lay-verify="">
@@ -328,7 +331,6 @@
 		<!--/_footer 作为公共模版分离出去-->
 
 		<!--请在下方写此页面业务相关的脚本-->
-		<script type="text/javascript" src="../../../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 		<!-- <script type="text/javascript" src="../../../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> -->
 		<script type="text/javascript" src="../../../lib/laypage/1.2/laypage.js"></script>
 		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>

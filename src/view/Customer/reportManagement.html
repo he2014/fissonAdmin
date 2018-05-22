@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="../../../lib/layer/2.4/css/modules/layer/default/layer.css">
+    <link rel="stylesheet" href="../../../lib/layer/2.4/skin/layui.css">
+    <!-- <link rel="stylesheet" href="../../../lib/bootstrap-3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../lib/bootstrap3-editable/css/bootstrap-editable.css"> -->
+    <!-- <link rel="stylesheet" href="../../../lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.css"> -->
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../../../lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" href="../../css/page.css">
+    <link rel="stylesheet" href="../../css/frontPages.css">
+    <title></title>
+    <style media="screen">
+        /* stop样式 */
+
+        .modal-dialog {
+            width: 1050px;
+        }
+
+        .fade.in {
+            z-index: 0;
+        }
+
+        .breadcrumb {
+            z-index: -1;
+        }
+
+        .KickingBtn {
+            margin-left: 15px;
+        }
+
+        #stopDetails {
+            height: 522px;
+            font-size: 14px;
+        }
+
+        .stop-body {
+            height: 380px;
+            padding: 10px;
+            padding-top: 5px;
+        }
+
+        .stop-header {
+            padding: 10px;
+        }
+
+        .stop-footer {
+            padding: 10px;
+        }
+
+        .stop-title {
+            padding: 1px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 0;
+        }
+
+        .btn-default {
+            margin-left: 16px;
+            margin-top: 29px;
+        }
+
+        .stopDetails>thead>tr>th {
+            font-weight: normal;
+            border-bottom-width: 1px;
+        }
+
+        .stopTable {
+            background-color: transparent;
+        }
+
+        input[type=radio] {
+            margin-left: 20px;
+        }
+
+        .check-box,
+        .radio-box {
+            float: right;
+        }
+
+        .on {
+            background-color: #5cb85c;
+        }
+
+        .hotonline {
+            background-color: #5cb85c !important;
+        }
+
+        .btn-sm {
+            border: 1px solid #ddd;
+            margin-left: 15px;
+            margin-top: 33px;
+            width: 115px;
+        }
+
+        td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        #reportManagementList {
+            margin: 20px;
+        }
+
+        .layui-layer-content {
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe62e;</i> 关键词举报管理
+        <span class="c-gray en">&gt;</span> 举报主播管理
+        </a>
+    </nav>
+    <!-- <div id="reportManagement_search" style="padding-left:20px;padding-bottom:20px;">
+        <button type="submit" class="btn btn-success" id="reportManagementSearch">
+            <i class="Hui-iconfont"></i> 查询</button>
+    </div> -->
+    <div id="reportManagementList">
+    </div>
+    <!-- stop -->
+    <div id="stopDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header stop-header">
+                    <span class="stop-title">Stop Host Live</span>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();" class="closeStop">×</a>
+                </div>
+                <div class="modal-body stop-body">
+                    <!-- 选择语言 -->
+                    <div class="chooseLanguage" style="height:20px">
+                        <div class="radio-box chooseLabel">
+                            <input type="radio" id="radio-1" name="demo-radio" value="1">
+                            <label for="radio-1">Ar</label>
+                            <input type="radio" id="radio-2" name="demo-radio" value="2">
+                            <label for="radio-2">Tr</label>
+                            <input type="radio" id="radio-3" name="demo-radio" value="3">
+                            <label for="radio-3">En</label>
+                        </div>
+                    </div>
+                    <table class="table table-border table-bordered  stopTable">
+                        <tbody>
+                            <!-- 停播原因 -->
+                            <tr height="100px">
+                                <td width="30%">
+                                    <button type="submit" name="button" class="btn  btn-sm" id="yhButton">A.suggestions</button>
+                                    <button type="submit" name="button" class="btn  btn-sm" id="jgButton">B.violation rules</button>
+                                </td>
+                                <td width="70%" rowspan="2">
+                                    <div class="widget widget-table" style="overflow:hidden;width:710px;height:293px;overflow-y:scroll">
+                                        <div class="widget-content">
+                                            <div class="zhongdong">
+                                                <!-- 按钮A列表 -->
+                                                <div class="suggestions">
+                                                    <div class="language1 lang">
+                                                        <table class="table">
+                                                            <tbody id="ArsuAr_list" class="clickChange lang_ar">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="language3 lang">
+                                                        <table class="table">
+                                                            <tbody id="ArsuEn_list" class="clickChange  lang_en">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <!-- 按钮b列表 -->
+                                                <div class="violation">
+                                                    <div class="language1 lang">
+                                                        <table class="table">
+                                                            <tbody id="ArviAr_list" class="clickChange">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="language3 lang">
+                                                        <table class="table">
+                                                            <tbody id="ArviEn_list" class="clickChange">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="tuerqi">
+                                                <!-- 按钮A列表 -->
+                                                <div class="suggestions">
+                                                    <div class="language2 lang">
+                                                        <table class="table">
+                                                            <tbody id="TrsuTr_list" class="clickChange">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="language3 lang">
+                                                        <table class="table">
+                                                            <tbody id="TrsuEn_list" class="clickChange">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <!-- 按钮b列表 -->
+                                                <div class="violation">
+                                                    <div class="language2 lang">
+                                                        <table class="table">
+                                                            <tbody id="TrviTr_list" class="clickChange">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="language3 lang">
+                                                        <table class="table">
+                                                            <tbody id="TrviEn_list" class="clickChange">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- 停播统计 -->
+                            <tr height="160px">
+                                <td width="30%" rowspan="2">
+                                    <div class="stopDetail" style="overflow:hidden;width:283px;height:229px;overflow-y:scroll">
+                                        <table class="table table-border table-bordered table-bg  table-hover stopDetails">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" colspan="2">Details</th>
+                                                </tr>
+                                                <tr class="text-c">
+                                                    <th class="f-14">Reason group</th>
+                                                    <th class="f-14">Total number</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="stopDetailsList">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                                <!-- 备注 -->
+                                <tr height="40px">
+                                    <td width="70%" class="notes" style="padding:8px">
+                                        Notes：<input style="width:600px;margin-left:10px;" id="noteDetails" name="" type="text" class="input-text radius size-M">
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer stop-footer">
+                    <button class="btn btn-primary edit-User" id="submitStopDetail">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true" class="closeStop">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../../../lib/bootstrap-3/js/bootstrap.min.js"></script>
+    <script src="../../../lib/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="../../../lib/bootstrap3-editable/js/moment.js"></script>
+    <!-- <script src="../../../lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script> -->
+    <script type="text/javascript" src="../../../lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="../../../lib/layer/2.4/layui.all.js"></script>
+    <script type="text/javascript" src="../../../static/h-ui/js/H-ui.js"></script>
+    <script type="text/javascript" src="../../../static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script type="text/javascript" src="../../../lib/laypage/1.2/laypage.js"></script>
+    <!-- 常用公共JS-->
+    <script type="text/javascript" src="../../js/common.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/util.js"></script>
+    <script type="text/javascript" src="../../js/frontPages.js"></script>
+
+    <script type="text/javascript" src="../../js/upload.js" charset="utf-8"></script>
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../../js/Customer/room_stop_live_ar_util.js"></script>
+    <script type="text/javascript" src="../../js/Customer/room_stop_live_util.js"></script>
+    <script type="text/javascript" src="../../js/Customer/reportManagement.js"></script>
+</body>
+
+</html>

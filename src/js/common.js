@@ -1,4 +1,6 @@
-var paths = "http://10.10.32.147/backv2/";
+// var paths = "http://10.10.22.132/backv2/";
+var paths = "http://www.7najm.com/backv2/";
+var serverUrl = "http://www.7najm.com/resource/";
 /**
  * ajax的get请求
  * @param String url  请求接口url
@@ -6,14 +8,17 @@ var paths = "http://10.10.32.147/backv2/";
  * @param function success 成功回调
  * @param function error  失败回调 ，可为空
  */
+
 function getAjax(url, datas, success, error, isSysTip) {
+    var newTime = new Date().getTime();
+    datas['version_'] = newTime;
     $.ajax({
         type: "get",
         url: paths + url,
         async: true,
-        dataType: 'json',
+        dataType: "json",
         data: datas,
-        success: function (data) {
+        success: function(data) {
             if (isSysTip) {
                 success(data);
                 return;
@@ -21,26 +26,50 @@ function getAjax(url, datas, success, error, isSysTip) {
             if (data.code == 0) {
                 success(data);
             } else if (data.code == 99) {
-                window.location.href = window.location.href.replace("index.html", "login.html");
+                var locations = window.parent.location ? window.parent.location : window.location;
+                locations.href = locations.href.replace(
+                    "index.html",
+                    "login.html"
+                );
             } else if (data.code == 95) {
-                $.Huimodalalert('code ：95 id不存在！', 1500);
+                util.Huipopup("code ：95 id不存在！", 1500);
             } else if (data.code == 93) {
-                window.parent.location.href = window.parent.location.href.replace("index.html", "login.html");
+                var location_s = window.parent.location ? window.parent.location : window.location;
+                location_s.href = location_s.href.replace(
+                    "index.html",
+                    "login.html"
+                );
             } else {
                 if (error) {
                     error(data);
                 } else {
                     if (data.code == 403) {
-                        $.Huimodalalert("code: " + data.code + ' 沒有权限！', 1500)
+                        util.Huipopup(
+                            "code: " + data.code + " 沒有权限！",
+                            1500
+                        );
                     } else {
-                        $.Huimodalalert("code: " + data.code + ' 请求失败！', 1500)
-                    }
+                        var _timeOut = null;
+                        if (data.code == 404) {
+                            util.Huipopup(
+                                "code: " + data.code + "请求路径不存在", 1500);
+                        } else {
+                            util.Huipopup("code: " + data.code + "  未知错误！");
+                        }
+                        // _timeOut = setTimeout(function () {
+                        //     var location_error = window.parent.location ? window.parent.location : window.location;
+                        //     if (cookie_util.get_cookie('SELF_LOGIN_KEY') && location_error.href.indexOf("index.html") >= 0) {
+                        //         location_error.href = location_error.href.replace("index.html", "login.html");
+                        //     }
+                        // }, 1500)
 
+
+                    }
                 }
             }
         },
-        error: function (e) {
-            $.Huimodalalert("code: " + data.code + ' 接口请求失败！', 1500)
+        error: function(e) {
+            util.Huipopup("接口请求失败！", 1500);
         }
     });
 }
@@ -52,14 +81,15 @@ function getAjax(url, datas, success, error, isSysTip) {
  * @param function error  失败回调 ，可为空
  */
 function postAjax(url, datas, success, error, isSysTip) {
+    var newTime = new Date().getTime();
     $.ajax({
         type: "post",
-        url: paths + url,
+        url: paths + url + '?version=' + newTime,
         async: true,
-        dataType: 'json',
+        dataType: "json",
         data: datas,
-        success: function (data) {
-            console.log(data)
+        success: function(data) {
+            //console.log(data);
             if (isSysTip) {
                 success(data);
                 return;
@@ -67,27 +97,54 @@ function postAjax(url, datas, success, error, isSysTip) {
             if (data.code == 0) {
                 success(data);
             } else if (data.code == 99) {
-                //$.Huimodalalert('登录失效，请重新登录！', 1500)
-                window.location.href = window.location.href.replace("index.html", "login.html");
+                var locations = window.parent.location ? window.parent.location : window.location;
+                locations.href = locations.href.replace(
+                    "index.html",
+                    "login.html"
+                );
             } else if (data.code == 104) {
-                $.Huimodalalert('code ：104 角色名不能重复！', 1500);
-
+                util.Huipopup("code ：104 角色名不能重复！", 1500);
+            } else if (data.code == 91) {
+                util.Huipopup("code ：91 密码错误！", 1500);
             } else if (data.code == 94) {
-                $.Huimodalalert('code ：94 用户名重复！', 1500);
+                util.Huipopup("code ：94 用户名重复！", 1500);
             } else if (data.code == 93) {
-                window.parent.location.href = window.parent.location.href.replace("index.html", "login.html");
+                var location_s = window.parent.location ? window.parent.location : window.location;
+                location_s.href = location_s.href.replace(
+                    "index.html",
+                    "login.html"
+                );
             } else if (data.code == 106) {
-                $.Huimodalalert('code ：106 id重复！', 1500);
+                util.Huipopup("code ：106 id重复！", 1500);
+            } else if (data.code == 100) {
+                util.Huipopup("code ：100 url不能为空！", 1500);
+            } else if (data.code == 111) {
+                util.Huipopup("code ：111 设备号重复！", 1500);
+            } else if (data.code == 90) {
+                util.Huipopup("code 90 参数错误");
+            } else if (data.code == 112) {
+                util.Huipopup("code 112 起始时间不能大于结束时间", 1500);
+            } else if (data.code == 117) {
+                util.Huipopup("道具数量不足");
+            } else if (data.code == 115) {
+                util.Huipopup("已经存在");
+            } else if (data.code == 403) {
+                util.Huipopup("code ：403 没有权限！", 1500);
             } else {
                 if (error) {
                     error(data);
                 } else {
-                    $.Huimodalalert("code: " + data.code + ' 参数错误！', 1500)
+                    if (data.code == 404) {
+                        util.Huipopup(
+                            "code: " + data.code + "请求路径不存在", 1500);
+                    } else {
+                        util.Huipopup("code: " + data.code + "  未知错误！");
+                    }
                 }
             }
         },
-        error: function (e) {
-            $.Huimodalalert("code: " + data.code + ' 接口请求失败！', 1500)
+        error: function(e) {
+            util.Huipopup(" 接口请求失败！", 1500);
         }
     });
 }
@@ -97,11 +154,11 @@ function formAjax(url, datas, success, error, isSysTip) {
         type: "post",
         url: paths + url,
         async: true,
-        dataType: 'json',
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: "json",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         data: datas,
-        success: function (data) {
-            console.log(data)
+        success: function(data) {
+            console.log(data);
             if (isSysTip) {
                 success(data);
                 return;
@@ -109,17 +166,17 @@ function formAjax(url, datas, success, error, isSysTip) {
             if (data.code == 0) {
                 success(data);
             } else if (data.code == 99) {
-                $.Huimodalalert('code ：99 登录失效，请重新登录！', 1500)
+                $.Huimodalalert("code ：99 登录失效，请重新登录！", 1500);
             } else {
                 if (error) {
                     error(data);
                 } else {
-                    $.Huimodalalert("code: " + data.code + ' 请求失败！', 1500)
+                    $.Huimodalalert("code: " + data.code + " 请求失败！", 1500);
                 }
             }
         },
-        error: function (e) {
-            $.Huimodalalert("code: " + data.code + ' 接口请求失败！', 1500)
+        error: function(e) {
+            $.Huimodalalert("code: " + data.code + " 接口请求失败！", 1500);
         }
     });
 }
@@ -130,7 +187,7 @@ function formAjax(url, datas, success, error, isSysTip) {
  * @param num type 显示格式，，不传时默认显示年月日
  */
 function getTimes(str, f, type) {
-    var t = (f) ? parseInt(str) * 1000 : parseInt(str);
+    var t = f ? parseInt(str) * 1000 : parseInt(str);
     var d = new Date(t);
     var y = d.getFullYear();
     var m = setNum(d.getMonth() + 1);
@@ -153,7 +210,7 @@ function getTimes(str, f, type) {
     } else if (type == 7) {
         return y + "." + m + "." + da + "  " + h + ":" + mm + ":" + ss;
     } else {
-        return y + "." + m + "." + da;
+        return y + "-" + m + "-" + da;
     }
 }
 /**
@@ -161,12 +218,15 @@ function getTimes(str, f, type) {
  * @param String dateStr 日期
  */
 function getTimeStr(dateStr) {
-    var newstr = dateStr.replace(/-/g, '/');
+    var newstr = dateStr.replace(/-/g, "/");
     var date = new Date(newstr);
     var time_str = date.getTime().toString();
     return time_str.substr(0, 10);
 }
 
 function setNum(s) {
-    return (parseInt(s) > 9) ? s : '0' + s;
+    return parseInt(s) > 9 ? s : "0" + s;
 }
+/**
+ * 集中处理img错误问题;
+ */

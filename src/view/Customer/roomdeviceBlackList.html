@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="../../../lib/layer/2.4/css/modules/layer/default/layer.css">
+    <link rel="stylesheet" href="../../../lib/layer/2.4/skin/layui.css">
+    <!-- <link rel="stylesheet" href="../../../lib/layer/2.4/css/modules/code.css">  -->
+    <!-- <link rel="stylesheet" href="../../../lib/bootstrap-3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../lib/bootstrap3-editable/css/bootstrap-editable.css"> -->
+    <!-- <link rel="stylesheet" href="../../../lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.css"> -->
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../../../lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" href="../../css/page.css">
+    <link rel="stylesheet" href="../../css/frontPages.css">
+
+    <title></title>
+</head>
+
+<body>
+    <div style="padding: 20px;display: flex;">
+        <div id="tabindex0" style="width:350px;">
+            <span class="select-box" style="width:auto;">
+                <select id="changeSearchType" class="select" size="1" name="demo1">
+                    <option value="0" selected>id</option>
+                    <option value="1">设备号</option>
+                </select>
+            </span>
+            <input style="width:auto" name="userDetails" id="_roomdeviceBlackList" type="text" placeholder="请输入roomid" class="input-text radius size-M">
+            <button type="submit" class="btn btn-success" id="roomdeviceBlackList_btn">
+                <i class="Hui-iconfont"></i> 查询</button>
+        </div>
+
+    </div>
+
+    <div style="padding: 20px;display: flex;" class="userDetails" id="roomdeviceBlackList">
+
+    </div>
+    <div style="padding: 0 100px 20px 0;" class="holder hide">
+        <a class="jp-first jp-disabled"></a>
+        <a class="jp-previous jp-disabled"></a>
+        <a class="jp-current">1</a>
+        <a>2</a>
+        <a>3</a>
+        <a>4</a>
+        <a>5</a>
+        <a class="jp-hidden">6</a>
+        <a class="jp-hidden">7</a>
+        <a class="jp-hidden">8</a>
+        <a class="jp-hidden">9</a>
+        <span>...</span>
+        <a>10</a>
+        <a class="jp-next"></a>
+        <a class="jp-last jp-disabled"></a>
+    </div>
+
+    <script type="text/javascript" src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
+    <!-- <script src="../../../lib/bootstrap-3/js/bootstrap.min.js"></script>
+    <script src="../../../lib/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="../../../lib/bootstrap3-editable/js/moment.js"></script> -->
+    <!-- <script src="../../../lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script> -->
+    <script type="text/javascript" src="../../../lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="../../../lib/layer/2.4/layui.all.js"></script>
+    <script type="text/javascript" src="../../../static/h-ui/js/H-ui.js"></script>
+    <script type="text/javascript" src="../../../static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script type="text/javascript" src="../../../lib/laypage/1.2/laypage.js"></script>
+    <!-- 常用公共JS-->
+    <script type="text/javascript" src="../../js/common.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../js/util.js"></script>
+    <script type="text/javascript" src="../../js/frontPages.js"></script>
+
+    <script type="text/javascript" src="../../js/upload.js" charset="utf-8"></script>
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../../js/Customer/roomdeviceBlackList.js"></script>
+</body>
+
+</html>

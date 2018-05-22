@@ -1,0 +1,46 @@
+ 一、依赖架构：jqurey ,hui(http://www.h-ui.net/Hui-3.7-Hui-iconfont.shtml),layerui(http://www.layui.com/doc/modules/layer.html）;
+
+二、项目扩展：系统配置 -》资源管理建立资源；
+
+三、权限：
+
+	系统配置 -》功能管理：
+			建立功能权限，每个功能按钮添加独特标志。（注： 就地更改权限标志只能是：LOCAL_CAHNGE;且仅支持页面控制，不支持单个控制）;
+
+  1、隐藏显示权限：
+         
+		当前权限按钮添加class类名hide,属性 data-btn ='按钮标志'；最后调用 util.functions()函数;
+		可参照（src\js\Customer\userDetails.js）
+  
+   2、就地更改权限：
+	
+	在调用util.functions()之后，根据 storage和cookie 判断是否有权限 ；
+	可参照（src\js\Customer\userDetails.js）
+          		
+
+	eg:
+	    var resourceId = util.Storage.get("resourceId");
+            var local_change = cookie_util.get_cookie('local_change');
+            if (local_change == 'LOCAL_CAHNGE_' + resourceId) {
+                $("#userNick").editable({
+                    success: userDetails.editableCallback
+                });
+
+                $("#userState").editable({
+                    success: userDetails.editableCallback,
+                    source: [{
+                            value: 0,
+                            text: '启用'
+                        },
+                        {
+                            value: 1,
+                            text: '禁用'
+                        },
+                        {
+                            value: 2,
+                            text: '永久禁用'
+                        }
+                    ]
+                });
+		}
+	

@@ -1,0 +1,24 @@
+#userPic {
+    height: 100px;
+    width: auto;
+    position: absolute;
+}
+
+#hotDetails {
+    padding-top: 20px;
+}
+
+a {
+    color: #428bca;
+}
+
+.fade.in {
+    z-index: 0;
+}
+
+#host_level_td {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}

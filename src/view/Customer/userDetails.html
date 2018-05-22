@@ -8,28 +8,142 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="stylesheet" type="text/css" href="../../../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="../../../lib/layer/2.4/css/modules/layer/default/layer.css">
+    <link rel="stylesheet" href="../../../lib/layer/2.4/skin/layui.css">
+    <link rel="stylesheet" href="../../../lib/bootstrap-3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../lib/bootstrap3-editable/css/bootstrap-editable.css">
+    <!-- <link rel="stylesheet" href="../../../lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.css"> -->
     <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/H-ui.admin.css" />
     <link rel="stylesheet" type="text/css" href="../../../lib/Hui-iconfont/1.0.8/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="../../../static/h-ui.admin/css/style.css" />
     <link rel="stylesheet" href="../../css/page.css">
+    <link rel="stylesheet" href="../../css/frontPages.css">
     <link rel="stylesheet" href="../../css/Customer/userDetails.css">
+    <link rel="stylesheet" href="../../css/Customer/hotDetails.css">
     <title></title>
 </head>
 
 <body>
-    <dddd>fgfg</dddd>
+    <div style="padding: 20px;display: flex;" id="userDetails_tabBox">
+        <div id="tabindex0" style="width:1000px;">
+            <span class="select-box" style="width:auto;">
+                <select id="changeSearchType" class="select" size="1" name="demo1">
+                    <option value="1" selected>ID</option>
+                    <option value="2">邮箱</option>
+                    <option value="3">用户名</option>
+                    <option value="4">设备号</option>
+                </select>
+            </span>
+            <input style="width:auto" name="userDetailsSearch" type="text" placeholder="请输入userId" class="input-text radius size-M ">
+            <button type="submit" class="btn btn-success" id="userDetailsSearch">
+                <i class="Hui-iconfont"></i> 查询</button>
+            <button data-btn="_userDetailsSearch" id="add_user_Btn" class="layui-btn layui-btn-sm hide" style="margin-left:30px;">
+                <i class="layui-icon"></i> 新建
+            </button>
+        </div>
+        <div id="tabindex1" style="width:632px;" class="hide">
+            <input style="width:auto" name="siginListId" type="text" placeholder="请输入用户ID" class="input-text radius size-M">
+            <input style="width:auto" id="siginListstart" name="siginListstart" type="text" placeholder="请输入开始时间" class="input-text radius size-M">
+            <input style="width:auto" id="siginListend" name="siginListend" type="text" placeholder="请输入结束时间" class="input-text radius size-M">
+            <button type="submit" class="btn btn-success" id="userLoginLogSearch">
+                <i class="Hui-iconfont"></i> 查询</button>
+        </div>
+        <div id="tabindex2" style="width:632px;" class="hide">
+            <input style="width:auto" name="userDesablerecordId" type="text" placeholder="请输入用户ID" class="input-text radius size-M">
+            <button type="submit" class="btn btn-success" id="userDesablerecordSearch">
+                <i class="Hui-iconfont"></i> 查询</button>
+        </div>
+        <div id="tabindex3" style="width:632px;" class="hide">
+            <input style="width:auto" name="user-gag-play" type="text" placeholder="请输入用户ID" class="input-text radius size-M">
+            <button type="submit" class="btn btn-success" id="user-gag-play">
+                <i class="Hui-iconfont"></i> 查询</button>
+        </div>
+        <div id="tabindex4" style="width:632px;" class="hide">
+            <input style="width:auto" name="user-backpack" type="text" placeholder="请输入用户ID" class="input-text radius size-M">
+            <button type="submit" class="btn btn-success" id="user-backpack">
+                <i class="Hui-iconfont"></i> 查询</button>
+        </div>
+        <div id="tabindex5" style="width:1000px;" class="hide">
+            <input style="width:auto" name="user-rechange" type="text" placeholder="请输入用户ID" class="input-text radius size-M">
+            <input style="width:auto" name="user-rechangLists" type="text" placeholder="请输入订单号" class="input-text radius size-M">
+            <input style="width:auto" id="rechange-start" name="siginListstart" type="text" placeholder="请输入开始时间" class="input-text radius size-M">
+            <input style="width:auto" id="rechange-end" name="siginListend" type="text" placeholder="请输入结束时间" class="input-text radius size-M">
+            <button type="submit" class="btn btn-success" id="user-rechangeSearch">
+                <i class="Hui-iconfont"></i> 查询</button>
+            <button type="submit" class="btn btn-success" id="export">
+                <i class="Hui-iconfont"></i> 导出Excel</button>
+        </div>
+    </div>
+
+    <div class="userDetails" id="tab_demo">
+        <div class="tabBar clearfix">
+            <span class="">基本信息</span>
+            <span>登录日志</span>
+            <span>禁用记录</span>
+            <span>禁言,踢出房间</span>
+            <span>背包,座驾</span>
+            <span>充值记录</span>
+        </div>
+        <!-- 基本信息页面 -->
+        <div class="tabCon">
+            <div id="_userDetails">
+            </div>
+            <div id="hotDetails">
+            </div>
+            <div id="chatDetails"></div>
+        </div>
+        <!-- 登录信息页面 -->
+        <div class="tabCon cl pd-5 bg-1 bk-gray mt-20">
+            <div id="loginLog"></div>
+        </div>
+
+        <!-- 記錄页面 -->
+        <div class="tabCon">
+            <div id="desableRecord"></div>
+        </div>
+        <!-- 禁言页面 -->
+        <div class="tabCon cl pd-5 bg-1 bk-gray mt-20">
+            <div id="" style="width:632px;margin:15px;">
+                <span>房间号</span>
+                <input style="width:auto" name="bannedDetailsSearch_Id" type="text" placeholder="请输入房间ID" class="input-text radius size-M">
+                <button type="submit" class="btn btn-success" id="bannedDetailsSearch">
+                    <i class="Hui-iconfont"></i> 查询禁言详情</button>
+                <button type="submit" class="btn btn-success" id="kickDetailsSearch">
+                    <i class="Hui-iconfont"></i> 查询踢出详情</button>
+            </div>
+            <div id="gag_PlayRoom"></div>
+        </div>
+        <div class="tabCon cl pd-5 bg-1 bk-gray mt-20">
+            <div id="backpack_tab"></div>
+            <div id="car_tab"></div>
+        </div>
+        <div class="tabCon cl pd-5 bg-1 bk-gray mt-20">
+            <div id="rechangBlackList"></div>
+            <div id="rechangList"></div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../../../lib/bootstrap-3/js/bootstrap.min.js"></script>
+    <script src="../../../lib/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="../../../lib/bootstrap3-editable/js/moment.js"></script>
+    <!-- <script src="../../../lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script> -->
     <script type="text/javascript" src="../../../lib/layer/2.4/layer.js"></script>
-    <script type="text/javascript" src="../../../static/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="../../../lib/layer/2.4/layui.all.js"></script>
+    <script type="text/javascript" src="../../../static/h-ui/js/H-ui.js"></script>
     <script type="text/javascript" src="../../../static/h-ui.admin/js/H-ui.admin.js"></script>
-    <script type="text/javascript" src="../../../lib/My97DatePicker/4.8/WdatePicker.js"></script>
     <script type="text/javascript" src="../../../lib/laypage/1.2/laypage.js"></script>
     <!-- 常用公共JS-->
     <script type="text/javascript" src="../../js/common.js" charset="utf-8"></script>
     <script type="text/javascript" src="../../js/util.js"></script>
+    <script type="text/javascript" src="../../js/frontPages.js"></script>
+
+    <script type="text/javascript" src="../../js/upload.js" charset="utf-8"></script>
     <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../../js/Customer/hotDetails.js"></script>
     <script type="text/javascript" src="../../js/Customer/userDetails.js"></script>
+
 </body>
 
 </html>

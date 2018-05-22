@@ -170,7 +170,7 @@
     <script type="text/javascript" src="../../js/common.js"></script>
     <!-- <script src="../../js/system/resourceMange.js" charset="utf-8"></script> -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var resource_data = null;
             // var _this = this;
             /*获取资源列表*/
@@ -178,7 +178,7 @@
                 getAjax('resource/list?' + new Date().getTime(), {
                     page: 1,
                     size: 100
-                }, function(data) {
+                }, function (data) {
                     if (data.code == 0) {
                         resource_data = data.dataInfo;
                         render(resource_data);
@@ -193,7 +193,7 @@
                 } else {
                     $("#_add-ztree").find("input.layui-disabled").val("是")
                 }
-                $("#_submitadd_ztree").unbind("click").click(function() {
+                $("#_submitadd_ztree").unbind("click").click(function () {
                     var im = treeNode.level == 2 ? 1 : 0;
                     var icon = $("input[name='icon']").val();
                     var url = $("input[name='url']").val();
@@ -205,7 +205,7 @@
                     }
                     var ie = $("select[name='ie']").val();
                     var index = $("input[name='index']").val();
-                    if (!url&& treeNode.isMenu==1) {
+                    if (!url && treeNode.isMenu == 1) {
                         // layer.msg("图标地址不能为空")
                         layer.msg("资源url不能为空")
                     } else if (!n) {
@@ -219,7 +219,7 @@
                             pid: pid,
                             index: index,
                             id: id
-                        }, function(data) {
+                        }, function (data) {
                             if (data.code == 0) {
                                 $("select[name='im']").val("");
                                 $("input[name='icon']").val("");
@@ -237,7 +237,7 @@
             }
             //显示添加按钮和版块
             function addHoverDom(treeId, treeNode) {
-                setTimeout(function() {
+                setTimeout(function () {
                     if (treeNode.name == "root") { //去掉root删除按钮；
                         $("#treeDemo_1_remove").hide();
                     }
@@ -255,18 +255,19 @@
                 var btn = $("#addBtn_" + treeNode.tId);
 
                 if (btn) {
-                    $("#" + treeNode.tId + "_a").mouseenter(function() {
+                    $("#" + treeNode.tId + "_a").mouseenter(function () {
                         btn.show()
                     })
-                    $("#" + treeNode.tId + "_a").mouseleave(function() {
+                    $("#" + treeNode.tId + "_a").mouseleave(function () {
                         btn.hide()
                         // $("#_add-ztree").hide()
                     })
 
-                    btn.unbind("click").click(function() {
+                    btn.unbind("click").click(function () {
                         $("#_edit-ztree").hide();
                         $("#_add-ztree").show();
-
+                        $('select[name="ie" ]').val('启用');
+                        $('select[name="ie" ]').attr("selected", true);
                         $("#_add_node").html("在" + treeNode.name + "下添加新的资源节点")
 
 
@@ -292,19 +293,23 @@
                 $("#_edit-ztree").show();
                 $("#_add-ztree").hide();
                 var data = treeNode;
+                console.log(data);
                 if (data.isMenu == 0) {
                     $("select[name='ims']").find('option').eq(0).attr("selected", true);
                     $("select[name='ims']").find('option').eq(1).removeAttr("selected");
-                    $(".layui-unselect").val("是")
+                    $("select[name='ims']").siblings(".layui-form-select").find('.layui-input').val('是')
                 } else {
                     $("select[name='ims']").find('option').eq(0).removeAttr("selected")
                     $("select[name='ims']").find('option').eq(1).attr("selected", true);
-                    $(".layui-unselect").val("不是")
+                    // $("select[name='ims']").val("不是")
+                    $("select[name='ims']").siblings(".layui-form-select").find('.layui-input').val('不是')
                 }
                 if (data.isEnable == 0) {
                     $("select[name='ies']").find('option').eq(1).attr("selected", true);
+                    $("select[name='ies']").siblings(".layui-form-select").find('.layui-input').val('启用')
                 } else {
                     $("select[name='ies']").find('option').eq(0).attr("selected", true);
+                    $("select[name='ies']").siblings(".layui-form-select").find('.layui-input').val('禁用')
                 }
 
                 // var im = $("select[name='im']").val();
@@ -318,13 +323,15 @@
                 var url = $("input[name='urls']").val(data.urls);
                 var n = $("input[name='ns']").val(data.name);
                 $("input[name='indexs']").val(data.index);
-                $("#_submitedit_ztree").unbind("click").click(function() {
+                $("#_submitedit_ztree").unbind("click").click(function () {
                     var im = $("select[name='ims']").val();
                     var icon = $("input[name='icons']").val();
                     var url = $("input[name='urls']").val();
                     var n = $("input[name='ns']").val();
                     var index = $("input[name='indexs']").val();
                     var ids = $("input[name='ids']").val();
+                    var ie = $("select[name='ies']").val();
+                    // console.log(ie)
                     var pid = treeNode.pId;
                     postAjax("resource/update", {
                         im: im,
@@ -333,8 +340,9 @@
                         n: n,
                         pid: pid,
                         index: index,
-                        id: ids
-                    }, function(data) {
+                        id: ids,
+                        ie: ie
+                    }, function (data) {
                         if (data.code == 0) {
                             layer.msg('修改成功！')
                             getResource()
@@ -346,7 +354,7 @@
             function zTreeBeforeRemove(treeId, treeNode) {
                 postAjax("resource/del", {
                     id: treeNode.id
-                }, function(data) {
+                }, function (data) {
                     if (data.code == 0) {
                         layer.msg("删除成功");
                     } else {

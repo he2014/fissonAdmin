@@ -1,33 +1,33 @@
-$(document).ready(function() {
-    $("#functionTable").on("click", "a", function() {
+$(document).ready(function () {
+    $("#functionTable").on("click", "a", function () {
         var id =
             $(this)
-                .parent("td")
-                .attr("id") ||
+            .parent("td")
+            .attr("id") ||
             $(this)
-                .parent("td")
-                .siblings("td")
-                .attr("id");
+            .parent("td")
+            .siblings("td")
+            .attr("id");
         var pid =
             $(this)
-                .parent("td")
-                .attr("pid") ||
+            .parent("td")
+            .attr("pid") ||
             $(this)
-                .parent("td")
-                .siblings("td")
-                .attr("pid");
+            .parent("td")
+            .siblings("td")
+            .attr("pid");
         var dataValue = $(this)
             .parent("td")
             .data("manage");
         console.log(dataValue);
         if (
             $(this)
-                .find("i")
-                .hasClass("userDelete") &&
+            .find("i")
+            .hasClass("userDelete") &&
             pid
         ) {
             //删除
-            layer.confirm("确认要删除吗？", function(index) {
+            layer.confirm("确认要删除吗？", function (index) {
                 $.ajax({
                     type: "POST",
                     url: paths + "function/del",
@@ -35,7 +35,7 @@ $(document).ready(function() {
                     data: {
                         id: id
                     },
-                    success: function(data) {
+                    success: function (data) {
                         if (data.code == 0 && data.dataInfo > 0) {
                             layer.msg("已删除!", {
                                 icon: 1,
@@ -44,15 +44,15 @@ $(document).ready(function() {
                             functiontable.init();
                         }
                     },
-                    error: function(data) {
+                    error: function (data) {
                         console.log(data.msg);
                     }
                 });
             });
         } else if (
             $(this)
-                .find("i")
-                .hasClass("userEdit") &&
+            .find("i")
+            .hasClass("userEdit") &&
             pid
         ) {
             //编辑
@@ -60,8 +60,7 @@ $(document).ready(function() {
                 type: 1,
                 skin: "layui-layer-rim", //加上边框
                 area: ["600px", "280px"], //宽高
-                content:
-                    '<div class="modal-content radius">' +
+                content: '<div class="modal-content radius">' +
                     '<div style="text-align: center">id:' +
                     dataValue.functionId +
                     "</div>" +
@@ -83,7 +82,7 @@ $(document).ready(function() {
                     "</div>",
 
                 btn: ["确定", "关闭"],
-                yes: function(index, layero) {
+                yes: function (index, layero) {
                     var fna = $("#functionEditName").val();
                     var ffl = $("#functionEditFlag").val();
 
@@ -96,7 +95,7 @@ $(document).ready(function() {
                             flag: ffl,
                             id: id
                         };
-                        postAjax("function/update", data, function(msg) {
+                        postAjax("function/update", data, function (msg) {
                             if (msg.code == 0 && msg.dataInfo > 0) {
                                 layer.msg("功能修改成功！", {
                                     icon: 1,
@@ -109,7 +108,7 @@ $(document).ready(function() {
                     }
                     return false;
                 },
-                btn2: function(index, layero) {
+                btn2: function (index, layero) {
                     layer.close(edit);
                 }
             });
@@ -119,8 +118,7 @@ $(document).ready(function() {
                 type: 1,
                 skin: "layui-layer-rim", //加上边框
                 area: ["600px", "460px"], //宽高
-                content:
-                    '<div class="modal-content radius">' +
+                content: '<div class="modal-content radius">' +
                     '<form role="form">' +
                     '<div class="form name">' +
                     '<label for="name">功能名字：</label>' +
@@ -146,8 +144,8 @@ $(document).ready(function() {
                     "</div>" +
                     "</form>" +
                     "</div>",
-                success: function(layero, index) {
-                    $("#selectType").change(function() {
+                success: function (layero, index) {
+                    $("#selectType").change(function () {
                         var ft = $("#selectType option:checked").text();
                         if (ft == "范围") {
                             $(".functionScope").attr("disabled", false);
@@ -159,7 +157,7 @@ $(document).ready(function() {
                     });
                 },
                 btn: ["确定", "关闭"],
-                yes: function(index, layero) {
+                yes: function (index, layero) {
                     var fn = $("#functionName").val();
                     var fid = $("#functionId").val();
                     var ff = $("#functionFlag").val();
@@ -180,7 +178,7 @@ $(document).ready(function() {
                                 pt: p,
                                 id: fid
                             };
-                            postAjax("function/add", data, function(msg) {
+                            postAjax("function/add", data, function (msg) {
                                 if (msg.code == 0 && msg.dataInfo > 0) {
                                     layer.msg("新功能保存成功！", {
                                         icon: 1,
@@ -210,7 +208,7 @@ $(document).ready(function() {
                                     r: rr,
                                     id: fid
                                 };
-                                postAjax("function/add", datas, function(msg) {
+                                postAjax("function/add", datas, function (msg) {
                                     if (msg.code == 0 && msg.dataInfo > 0) {
                                         layer.msg("新功能保存成功！", {
                                             icon: 1,
@@ -228,7 +226,7 @@ $(document).ready(function() {
                     }
                     return false;
                 },
-                btn2: function(index, layero) {
+                btn2: function (index, layero) {
                     layer.close(edit);
                 }
             });
@@ -236,38 +234,33 @@ $(document).ready(function() {
     });
     var stringFormat = util.String.stringFormat;
     var functiontable = {
-        init: function() {
+        init: function () {
             this.getFunction();
         },
-        getFunction: function() {
+        getFunction: function () {
             var _this = this;
             $("#functionTable").html(
                 "<tr> " +
-                    "<td>顶部菜单</td>" +
-                    "<td>左侧菜单</td>" +
-                    "<td>资源</td>" +
-                    "<td>功能</td>" +
-                    "</tr>"
+                "<td>顶部菜单</td>" +
+                "<td>左侧菜单</td>" +
+                "<td>资源</td>" +
+                "<td>功能</td>" +
+                "</tr>"
             );
 
             var htmlTemplate = {
                 td: '<td style="height:{0}px" id="{1}" pid="{2}">{3}</td>',
-                trtd:
-                    ' <tr> <td style="height: {0}px;" id="{1}" pid="{2}">{3}</td></tr>',
+                trtd: ' <tr> <td style="height: {0}px;" id="{1}" pid="{2}">{3}</td></tr>',
                 lasttrtd: ' <tr> <td id="{0}" pid="{1}">{2}</td></tr>',
-                lasttrtdNotWithBottun:
-                    ' <tr> <td id="{0}" pid="{1}" style="height: 30px; border-bottom: none;">{2}</td></tr>',
-                trtdNotWithBottum:
-                    ' <tr> <td style="height: {0}px;border-bottom: none;" id="{1}" pid="{2}" class="mybutton">{3}</td></tr>',
+                lasttrtdNotWithBottun: ' <tr> <td id="{0}" pid="{1}" style="height: 30px;">{2}</td></tr>',
+                trtdNotWithBottum: ' <tr> <td style="height: {0}px;border-bottom: none;" id="{1}" pid="{2}" class="mybutton">{3}</td></tr>',
                 tdtable: "<td><table>{0}</table></td>",
-                tdconst:
-                    '<td> <table><tr><td id="{1}" pid="{2} style="height: 30px; border-bottom: none;">没有资源</td></tr></table>',
-                symbol:
-                    '<td class="td-manage" data-manage={0}><a title="添加" href="javascript:;" class="ml-3" style="text-decoration:none" id="functonBtn_add"><i class="Hui-iconfont">&#xe600;</i></a><a title="编辑" href="javascript:;" class="ml-5" style="text-decoration:none" id="functonBtn_edit"><i class="Hui-iconfont userEdit">&#xe6df;</i></a><a title="删除" href="javascript:;" class="ml-7" style="text-decoration:none" id="functonBtn_delete"><i  class="Hui-iconfont userDelete">&#xe6e2;</i></a></td>'
+                tdconst: '<td> <table><tr><td id="{1}" pid="{2} style="height: 30px; border-bottom: none;">没有资源</td></tr></table>',
+                symbol: '<td class="td-manage" data-manage={0}><a title="添加" href="javascript:;" class="ml-3" style="text-decoration:none" id="functonBtn_add"><i class="Hui-iconfont">&#xe600;</i></a><a title="编辑" href="javascript:;" class="ml-5" style="text-decoration:none" id="functonBtn_edit"><i class="Hui-iconfont userEdit">&#xe6df;</i></a><a title="删除" href="javascript:;" class="ml-7" style="text-decoration:none" id="functonBtn_delete"><i  class="Hui-iconfont userDelete">&#xe6e2;</i></a></td>'
             };
-            getAjax("function/list", {}, function(data) {
+            getAjax("function/list", {}, function (data) {
                 //顶部菜单
-                data.dataInfo.forEach(function(t) {
+                data.dataInfo.forEach(function (t) {
                     var template = "<tr>";
                     template +=
                         "<td id='" +
@@ -282,7 +275,7 @@ $(document).ready(function() {
                     var td3 = "";
                     if (t.childs && t.childs.length > 0) {
                         //左侧菜单
-                        t.childs.forEach(function(value1, index1, array1) {
+                        t.childs.forEach(function (value1, index1, array1) {
                             var functionSize = getFunctionSize(value1);
                             if (index1 == array1.length - 1) {
                                 td1 += stringFormat(
@@ -303,7 +296,7 @@ $(document).ready(function() {
                             }
                             //资源
                             if (value1.childs && value1.childs.length > 0) {
-                                value1.childs.forEach(function(
+                                value1.childs.forEach(function (
                                     value2,
                                     index2,
                                     array2
@@ -330,35 +323,24 @@ $(document).ready(function() {
                                         );
                                     }
                                     //         // 功能
-                                    if (
-                                        value2.functionInfoBeans &&
-                                        value2.functionInfoBeans.length > 0
-                                    ) {
+                                    if (value2.functionInfoBeans && value2.functionInfoBeans.length > 0) {
                                         value2.functionInfoBeans.forEach(
-                                            function(value3, index3, array3) {
-                                                var types =
-                                                    value3.functionPermissionType ==
-                                                    1
-                                                        ? "范围"
-                                                        : "是否";
-                                                if (
-                                                    index2 ==
-                                                        array2.length - 1 &&
-                                                    index3 == array3.length - 1
-                                                ) {
+                                            function (value3, index3, array3) {
+                                                var types = value3.functionPermissionType == 1 ? "范围" : "是否";
+                                                if (index2 == array2.length - 1 && index3 == array3.length - 1) {
                                                     td3 += stringFormat(
                                                         htmlTemplate.lasttrtdNotWithBottun,
                                                         value3.functionId,
                                                         value3.resourceId,
                                                         value3.functionName +
-                                                            " " +
-                                                            types +
-                                                            stringFormat(
-                                                                htmlTemplate.symbol,
-                                                                JSON.stringify(
-                                                                    value3
-                                                                )
+                                                        " " +
+                                                        types +
+                                                        stringFormat(
+                                                            htmlTemplate.symbol,
+                                                            JSON.stringify(
+                                                                value3
                                                             )
+                                                        )
                                                     );
                                                 } else {
                                                     // console.info(value3.functionName);
@@ -367,14 +349,14 @@ $(document).ready(function() {
                                                         value3.functionId,
                                                         value3.resourceId,
                                                         value3.functionName +
-                                                            " " +
-                                                            types +
-                                                            stringFormat(
-                                                                htmlTemplate.symbol,
-                                                                JSON.stringify(
-                                                                    value3
-                                                                )
+                                                        " " +
+                                                        types +
+                                                        stringFormat(
+                                                            htmlTemplate.symbol,
+                                                            JSON.stringify(
+                                                                value3
                                                             )
+                                                        )
                                                     );
                                                 }
                                             }
@@ -418,23 +400,23 @@ $(document).ready(function() {
                             '<td> <table><tr><td style="height: 30px; border-bottom: none;">没有资源</td></tr></table>';
                     }
                     template +=
-                        (td1 == ""
-                            ? ""
-                            : stringFormat(htmlTemplate.tdtable, td1)) +
-                        (td2 == ""
-                            ? ""
-                            : stringFormat(htmlTemplate.tdtable, td2)) +
-                        (td3 == ""
-                            ? ""
-                            : stringFormat(htmlTemplate.tdtable, td3)) +
+                        (td1 == "" ?
+                            "" :
+                            stringFormat(htmlTemplate.tdtable, td1)) +
+                        (td2 == "" ?
+                            "" :
+                            stringFormat(htmlTemplate.tdtable, td2)) +
+                        (td3 == "" ?
+                            "" :
+                            stringFormat(htmlTemplate.tdtable, td3)) +
                         "</tr>";
                     $("#functionTable").append(template);
                 });
             });
         },
-        binds: function() {
+        binds: function () {
             var _this = this;
-            $("#functionTable td").on("click", "div", function(e) {
+            $("#functionTable td").on("click", "div", function (e) {
                 var target = e.target;
                 var id = $(target).attr("id");
                 var reId = $(target).attr("dataId");
@@ -495,9 +477,9 @@ $(document).ready(function() {
                 return 0;
             }
         } else {
-            return e.functionInfoBeans && e.functionInfoBeans.length > 0
-                ? e.functionInfoBeans.length
-                : 1;
+            return e.functionInfoBeans && e.functionInfoBeans.length > 0 ?
+                e.functionInfoBeans.length :
+                1;
         }
     }
 
